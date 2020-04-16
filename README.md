@@ -1,3 +1,9 @@
+This is the Augie Market Project developed by Son Nguyen, Nathan Truong, Samih Sghier and Danielle Osazuwa for the Computer Science Senior Inquiry class. 
+
+Here is a link to our group blog: https://medium.com/augie-market-team-oriole
+
+This web app is a platform for Augie students to sell and buy items, ranging from books to dorm supplies. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
