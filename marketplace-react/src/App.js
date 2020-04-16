@@ -1,19 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Login from './views/Login/Login';
 import Dashboard from './views/Dashboard/Dashboard';
 
 export default class App extends React.Component {
-
   constructor(props) {
-      super(props)
+    super(props);
+      //state management for now
   }
+
 
   render() {
     return (
       <React.Fragment>
-          <Dashboard/>
+        {/* components go here */}
+        {/* <Login></Login> */}
+        <Dashboard></Dashboard>
       </React.Fragment>
     );
   }
 }
+
