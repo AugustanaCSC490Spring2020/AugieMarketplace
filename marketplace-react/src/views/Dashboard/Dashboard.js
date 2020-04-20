@@ -1,5 +1,7 @@
-import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, Link,
-    List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import {
+    AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, Link,
+    List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography
+} from '@material-ui/core';
 import clsx from 'clsx';
 import { default as React } from 'react';
 //material-ui/icons
@@ -19,6 +21,7 @@ import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 //our components
 import CreateNewListingDialog from '../../components/CreateNewListingDialog';
 import CopyRightFooter from '../../components/CopyrightFooter';
+import GridTable from '../../components/GridTable';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -98,6 +101,14 @@ const useStyles = makeStyles(theme => ({
         height: 240,
     },
 }));
+
+const styles = {
+    stickToBottom: {
+        width: '100%',
+        position: 'fixed',
+        bottom: 0,
+    },
+};
 
 const drawerWidth = 240;
 
@@ -222,12 +233,12 @@ export default function Dashboard(props) {
 
                     {/*we add the components we want here i.e. card grid and the like*/}
 
+                    <GridTable></GridTable>
                     <Box pt={4}>
                         <CopyRightFooter></CopyRightFooter>
                     </Box>
                 </Container>
             </main>
-
         </div>
     );
 }
