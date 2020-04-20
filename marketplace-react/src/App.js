@@ -4,6 +4,7 @@ import Login from './views/Login/Login';
 import Dashboard from './views/Dashboard/Dashboard';
 import CreatePost from './views/CreatePost/CreatePost';
 import CreatePostForm from './views/CreatePost/CreatePostForm';
+import Submit from './views/CreatePost/Submit';
 
 
 export default class App extends React.Component {
@@ -20,7 +21,8 @@ export default class App extends React.Component {
         {/* <Login></Login> */}
         {/* <Dashboard></Dashboard> */}
         {/* <CreatePost></CreatePost> */}
-        <CreatePostForm></CreatePostForm>
+        {/* <CreatePostForm></CreatePostForm> */}
+        <Submit></Submit>
       </React.Fragment>
     );
   }
