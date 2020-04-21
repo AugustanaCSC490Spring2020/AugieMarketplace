@@ -1,24 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
+import { blue } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { red, blue } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React from 'react';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles(theme => ({
     root: {
         maxWidth: 345,
+        position: 'relative',
     },
     media: {
         height: 0,
@@ -27,42 +20,43 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         backgroundColor: blue[500],
     },
+    overlay: {
+        position: 'absolute',
+        bottom: '90px',
+        right: '10px',
+        color: 'black',
+        backgroundColor: 'white'
+    }
 }));
 
 export default function ItemCard(props) {
     const classes = useStyles();
-    const {name, user, datePosted} = props;
+    const { name, user, price } = props;
 
     return (
         <Card className={classes.root}>
-         
-            <CardHeader
-                avatar={
-                    <Avatar>{user.name.charAt(0)}</Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={name}
-                subheader={datePosted.toString}
-
-            />
-
             <CardMedia
                 className={classes.media}
                 image="mockImage.jpg"
-            />
+            >
+            </CardMedia>
+            <IconButton className={classes.overlay}>
+                <FavoriteIcon />
+            </IconButton>
 
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-            </CardActions>
+            {/* <CardHeader
+                avatar={
+                    <Avatar>{user.name.charAt(0)}</Avatar>
+                }
+                title={name}
+                subheader={price}
+            /> */}
+
+            <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p" >{name}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p" >{price}</Typography>
+            </CardContent>
+
         </Card>
     );
 }

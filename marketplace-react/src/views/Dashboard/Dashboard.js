@@ -1,27 +1,23 @@
-import {
-    AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, Link,
-    List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography
-} from '@material-ui/core';
+import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import CreateIcon from '@material-ui/icons/Create';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import HelpIcon from '@material-ui/icons/Help';
+import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
+import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import PersonIcon from '@material-ui/icons/Person';
+import SearchIcon from '@material-ui/icons/Search';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import clsx from 'clsx';
 import { default as React } from 'react';
-//material-ui/icons
-import AddIcon from '@material-ui/icons';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import MenuIcon from '@material-ui/icons/Menu';
-import PersonIcon from '@material-ui/icons/Person';
-import CreateIcon from '@material-ui/icons/Create';
-import EditIcon from '@material-ui/icons';
-import LibraryBooksIcon from '@material-ui/icons';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import HelpIcon from '@material-ui/icons/Help';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
-//our components
-import CreateNewListingDialog from '../../components/CreateNewListingDialog';
-import CopyRightFooter from '../../components/CopyrightFooter';
-import GridTable from '../../components/GridTable';
+import { CopyrightFooter, Filters, GridTable } from '../../components';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -171,6 +167,23 @@ const secondaryListItems = (
     </div>
 )
 
+function SearchBar(props) {
+    return (
+        <FormControl>
+            <Input
+                endAdornment={
+                    <InputAdornment
+                        position="end">
+                        <IconButton>
+                            <SearchIcon style={{ color: 'white' }} />
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+        </FormControl>
+    );
+}
+
 export default function Dashboard(props) {
 
     const classes = useStyles();
@@ -204,8 +217,15 @@ export default function Dashboard(props) {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Augie MarketPlace
                      </Typography>
+                    <SearchBar />
                     <IconButton color="inherit">
                         <PersonIcon />
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <FavoriteIcon />
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <ShoppingCartIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -230,12 +250,12 @@ export default function Dashboard(props) {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-
+                    <Filters align="center"/>
                     {/*we add the components we want here i.e. card grid and the like*/}
 
-                    <GridTable></GridTable>
+                    <GridTable />
                     <Box pt={4}>
-                        <CopyRightFooter></CopyRightFooter>
+                        <CopyrightFooter/>
                     </Box>
                 </Container>
             </main>
