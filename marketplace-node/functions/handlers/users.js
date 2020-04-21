@@ -31,14 +31,19 @@ exports.uploadImage = (req, res) => {
       return res.status(400).json({ error: "Wrong file type submitted" });
     }
 
-    //TODO: right now, this works, but it still uploads the file to the server
-    // file.on('limit', () => {
-    //   return res.status(400).json({ error: "File Size Limit Exceeded: 6MB max" });
-    // });
-
     const imageExtension = filename.split(".").pop();
     imageFileName = `${imageFileName}.${imageExtension}`;
     const filepath = path.join(os.tmpdir(), imageFileName); //because we're doing through cloud environment
+    file.on("limit", () => {
+      //delete the file that is large in size
+      fs.unlink(filepath, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "something went wrong" });
+        }
+      });
+      return res.status(400).json({ error: "File Size Limit Exceeded" });
+    });
     imageToBeUploaded = { filepath, mimetype };
     file.pipe(fs.createWriteStream(filepath));
   });
@@ -102,6 +107,34 @@ exports.updateInfo = (req, res) => {
     .update(getUpdatedUserInfo())
     .then(() => {
       return res.json({ message: "User Info Updated" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+// Get own user details
+exports.getAuthenticatedUser = (req, res) => {
+  let userData = {};
+  db.doc(`/users/${req.user.email}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+        return db
+          .collection("likes")
+          .where("toEmail", "==", req.user.email)
+          .get();
+      }
+    })
+    .then((data) => {
+      userData.likes = [];
+      data.forEach((doc) => {
+        userData.likes.push(doc.data());
+      });
+
+      return res.json(userData);
     })
     .catch((err) => {
       console.error(err);
