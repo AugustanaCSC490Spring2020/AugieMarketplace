@@ -67,8 +67,8 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         {/* components go here */}
-        {/* <Login></Login> */}
-        <Dashboard
+        <Login></Login>
+        {/* <Dashboard
           data={orderBy(
             this.state.query
               ? this.state.data.filter(x =>
@@ -80,7 +80,7 @@ export default class App extends React.Component {
           query={this.state.query}
           setQuery={this.setQuery}
           createPost={this.createPost}
-        />
+        /> */}
       </React.Fragment>
     );
   }
