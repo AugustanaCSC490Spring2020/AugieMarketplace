@@ -64,6 +64,7 @@ export default function GridTable(props) {
                                         name={cell.name}
                                         user={cell.user}
                                         price={cell.price}
+                                        imgs={cell.imgs}
                                     />
                                 </TableCell>
                             ))}

@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ItemCard(props) {
     const classes = useStyles();
-    const { name, user, price } = props;
+    const { name, user, price, imgs } = props;
 
     return (
         <Card className={classes.root}>
@@ -62,7 +62,7 @@ export default function ItemCard(props) {
 
             <CardMedia
                 className={classes.media}
-                image="mockImage.jpg"
+                image={"MockImages/" + imgs[0] + ".jpg"}
             >
             </CardMedia>
         </Card>

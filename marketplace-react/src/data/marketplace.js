@@ -10,21 +10,18 @@ export interface SimpleDate {
     year: Number;
     toString: String;
 }
+
 export interface Item {
     id: String, //shortid.generate()
     name: String,
     user: String, //user item belongs to
     price: Number,
-    status: Boolean,
+    //status: Boolean, should only be for the backend
     datePosted: SimpleDate,
     description: String,
-    featured: Boolean,
     tags: String[],
-    imgs:String[],
-    //images: figure out a way to store the images 
+    imgs: String[],
 }
-
-
 
 export function createSimpleDate(d: Date): SimpleDate {
     let day = d.getDate(), month = d.getMonth() + 1, year = d.getFullYear();

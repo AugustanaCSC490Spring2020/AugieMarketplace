@@ -1,35 +1,36 @@
 import shortid from 'shortid';
-import { User, Item, createSimpleDate } from './marketplace';
+import { User, Item, createSimpleDate, SimpleDate } from './marketplace';
 import { default as React } from 'react';
 
 export const MockUser: User = { name: "Danielle Osazuwa", email: "danielleosazuwa16@augustana.edu", phoneNumber: 3095924711 }
 
-export default function createItem(): Item {
-
-    return {}
+export default function createItem(
+    name: String,
+    user: String, //will be email
+    price: Number,
+    datePosted: SimpleDate,
+    description: String,
+    tags: String[],
+    imgs: String[]
+): Item {
+    const id = shortid.generate();
+    return { id, name, user, price, datePosted, description, tags, imgs }
 }
 
-let id = shortid.generate(),
-    name = "Item Name",
-    user = MockUser,
-    price = 25,
-    status = true,
-    datePosted = createSimpleDate(new Date()),
-    description = "It's an item",
-    featured = "false",
-    tags = ["item", "book", "furniture"],
-    imgs = ["mockImage.jpg"];
-
 export const MockItems: Item[] = [
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-    { id:shortid.generate(), name, user, price, status, datePosted, description, featured, tags, imgs},
-]
+    createItem("American Avocet", "danielleosazuwa16@augustana.edu", 20, createSimpleDate(new Date("01/20/2020")), "Recurvirostra americana", ['CSC'], ["avocet"]),
+    createItem("True Macaws", "danielleosazuwa16@augustana.edu", 25, createSimpleDate(new Date("01/20/2020")), "true-macaws", ['CSC'], ["true-macaws"]),
+    createItem("Grey Parrot", "danielleosazuwa16@augustana.edu", 15, createSimpleDate(new Date("01/20/2020")), "grey-parrot", ['CSC'], ["grey-parrot"]),
+    createItem("Cockatiel", "danielleosazuwa16@augustana.edu", 40, createSimpleDate(new Date("01/20/2020")), "cockatiel", ['CSC'], ["cockatiel"]),
+    createItem("Long-billed Corella", "danielleosazuwa16@augustana.edu", 50, createSimpleDate(new Date("01/20/2020")), "long-billed-corella", ['CSC'], ["long-billed-corella"]),
+
+    createItem("I Robot", "danielleosazuwa16@augustana.edu", 30, createSimpleDate(new Date("01/20/2020")), "Recurvirostra americana", ['CSC'], ["book1"]),
+    createItem("Some textbook", "danielleosazuwa16@augustana.edu", 55, createSimpleDate(new Date("02/03/2020")), "Recurvirostra americana", ['CSC'], ["book2"]),
+    createItem("Another One", "danielleosazuwa16@augustana.edu", 29, createSimpleDate(new Date("02/17/2020")), "Recurvirostra americana", ['CSC'], ["book3"]),
+    createItem("Coffee Please", "danielleosazuwa16@augustana.edu", 18.99, createSimpleDate(new Date("03/20/2020")), "Recurvirostra americana", ['CSC'], ["book4"]),
+
+    createItem("Mini fridge", "danielleosazuwa16@augustana.edu", 50, createSimpleDate(new Date("01/20/2019")), "it's a fridge", ['appliance'], ["minifridge"]),
+    createItem("Sofa", "danielleosazuwa16@augustana.edu", 55, createSimpleDate(new Date("01/19/2019")), "it's a sofa", ['furniture'], ["sofa"]),
+    createItem("Shirt", "danielleosazuwa16@augustana.edu", 60, createSimpleDate(new Date("01/15/2019")), "it's a shirt", ['apparel'], ["shirt"]),
+    createItem("Another Minifridge", "danielleosazuwa16@augustana.edu", 65, createSimpleDate(new Date("01/02/2019")), "it's another mini fridge", ['appliance'], ["anotherone"]),
+];
