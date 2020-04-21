@@ -19,6 +19,8 @@ import clsx from 'clsx';
 import { default as React } from 'react';
 import { CopyrightFooter, Filters, GridTable, ItemGridList } from '../../components';
 import { MockItems } from '../../data/mockData';
+import Submit from '../CreatePost/Submit';
+import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -118,12 +120,9 @@ const mainListItems = (
             <ListItemText primary="DashBoard" />
         </ListItem>
 
-        <ListItem button>
-            <ListItemIcon>
-                <CreateIcon />
-            </ListItemIcon>
-            <ListItemText primary="New Post" />
-        </ListItem>
+     
+
+        <CreatePostDialogue/>
 
         <ListItem button>
             <ListItemIcon>
