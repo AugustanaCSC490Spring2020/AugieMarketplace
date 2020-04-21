@@ -26,11 +26,14 @@ export const MockItems: Item[] = [
 
     createItem("I Robot", "danielleosazuwa16@augustana.edu", 30, createSimpleDate(new Date("01/20/2020")), "Recurvirostra americana", ['CSC'], ["book1"]),
     createItem("Some textbook", "danielleosazuwa16@augustana.edu", 55, createSimpleDate(new Date("02/03/2020")), "Recurvirostra americana", ['CSC'], ["book2"]),
+    createItem("True Macaws", "danielleosazuwa16@augustana.edu", 25, createSimpleDate(new Date("01/03/2020")), "true-macaws", ['CSC'], ["true-macaws"]),
     createItem("Another One", "danielleosazuwa16@augustana.edu", 29, createSimpleDate(new Date("02/17/2020")), "Recurvirostra americana", ['CSC'], ["book3"]),
     createItem("Coffee Please", "danielleosazuwa16@augustana.edu", 18.99, createSimpleDate(new Date("03/20/2020")), "Recurvirostra americana", ['CSC'], ["book4"]),
+    createItem("I Robot", "danielleosazuwa16@augustana.edu", 30, createSimpleDate(new Date("03/20/2019")), "Recurvirostra americana", ['CSC'], ["book1"]),
 
     createItem("Mini fridge", "danielleosazuwa16@augustana.edu", 50, createSimpleDate(new Date("01/20/2019")), "it's a fridge", ['appliance'], ["minifridge"]),
     createItem("Sofa", "danielleosazuwa16@augustana.edu", 55, createSimpleDate(new Date("01/19/2019")), "it's a sofa", ['furniture'], ["sofa"]),
     createItem("Shirt", "danielleosazuwa16@augustana.edu", 60, createSimpleDate(new Date("01/15/2019")), "it's a shirt", ['apparel'], ["shirt"]),
     createItem("Another Minifridge", "danielleosazuwa16@augustana.edu", 65, createSimpleDate(new Date("01/02/2019")), "it's another mini fridge", ['appliance'], ["anotherone"]),
+    createItem("Cockatiel", "danielleosazuwa16@augustana.edu", 40, createSimpleDate(new Date("01/20/2019")), "cockatiel", ['CSC'], ["cockatiel"]),
 ];
