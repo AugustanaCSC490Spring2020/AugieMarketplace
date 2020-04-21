@@ -120,9 +120,9 @@ const mainListItems = (
             <ListItemText primary="DashBoard" />
         </ListItem>
 
-     
-
-        <CreatePostDialogue/>
+        <CreatePostDialogue
+            //createPost={props.createPost}
+        />
 
         <ListItem button>
             <ListItemIcon>
@@ -131,7 +131,6 @@ const mainListItems = (
             <ListItemText primary="Notifications" />
         </ListItem>
 
-        {/* <CreateNewListingDialog></CreateNewListingDialog> */}
     </div>
 );
 
@@ -197,7 +196,6 @@ function prepareData(data): [] {
         rows.push(cells);
     }
 
-    console.log(rows)
     return rows;
 }
 
@@ -236,7 +234,7 @@ export default function Dashboard(props) {
                     <SearchBar
                         query={props.query}
                         setQuery={props.setQuery}
-                     />
+                    />
                     <IconButton color="inherit">
                         <PersonIcon />
                     </IconButton>
@@ -261,7 +259,26 @@ export default function Dashboard(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                {/* <List>{mainListItems}</List> */}
+                <List>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="DashBoard" />
+                        </ListItem>
+
+                        <CreatePostDialogue
+                            createPost={props.createPost}
+                        />
+
+                        <ListItem button>
+                            <ListItemIcon>
+                                <NotificationsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Notifications" />
+                        </ListItem>
+                </List>
                 <Divider />
                 <List>{secondaryListItems}</List>
             </Drawer>

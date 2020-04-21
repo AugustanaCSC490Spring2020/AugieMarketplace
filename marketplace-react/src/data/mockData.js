@@ -4,7 +4,7 @@ import { default as React } from 'react';
 
 export const MockUser: User = { name: "Danielle Osazuwa", email: "danielleosazuwa16@augustana.edu", phoneNumber: 3095924711 }
 
-export default function createItem(
+export function createItem(
     name: String,
     user: String, //will be email
     price: Number,
@@ -12,7 +12,7 @@ export default function createItem(
     description: String,
     tags: String[],
     imgs: String[]
-): Item {
+) {
     const id = shortid.generate();
     return { id, name, user, price, datePosted, description, tags, imgs }
 }

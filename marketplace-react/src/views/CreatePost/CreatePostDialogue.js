@@ -71,6 +71,8 @@ export default function CreatePlanDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [activeStep, setActiveStep] = React.useState(0);
+    const [fullWidth, setFullWidth] = React.useState(true);
+    const [maxWidth, setMaxWidth] = React.useState('md');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -97,13 +99,17 @@ export default function CreatePlanDialog() {
                 </ListItemIcon>
                 <ListItemText primary="New Post" />
             </ListItem>
-            <Dialog open={open} onClose={handleClose} className={classes.dialog}>
+            <Dialog open={open}
+                fullWidth={fullWidth}
+                maxWidth={maxWidth}
+                onClose={handleClose}
+                className={classes.dialog}>
                 <DialogContent>
                     <main
                         className={classes.layout}
                     // style={{ borderStyle: 'none' }}
                     >
-                        <Paper>
+                        <Paper className={classes.paper}>
                             <Typography component="h1" variant="h4" align="center">
                                 Post an item</Typography>
                             <Divider />
