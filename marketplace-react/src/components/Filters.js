@@ -46,6 +46,8 @@ const sortTypes = [
 const productTypes = [
     "Books",
     "Furniture",
+    "Appliances",
+    "Apparel",
     "Housing",
 ];
 
