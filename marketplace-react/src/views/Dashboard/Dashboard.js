@@ -180,6 +180,8 @@ function SearchBar(props) {
                         </IconButton>
                     </InputAdornment>
                 }
+                value={props.query}
+                onChange={e => props.setQuery(e.target.value)}
             />
         </FormControl>
     );
@@ -190,8 +192,8 @@ function prepareData(data): [] {
 
     for (let i = 0; i < data.length; i += 3) {
         cells = [];
-        for (let j = 0; i+j<data.length &&j<3; j++) {
-            cells.push(JSON.parse(JSON.stringify(data[i+j])));
+        for (let j = 0; i + j < data.length && j < 3; j++) {
+            cells.push(JSON.parse(JSON.stringify(data[i + j])));
         }
         rows.push(cells);
     }
@@ -232,7 +234,10 @@ export default function Dashboard(props) {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Augie MarketPlace
                      </Typography>
-                    <SearchBar />
+                    <SearchBar
+                        query={props.query}
+                        setQuery={props.setQuery}
+                     />
                     <IconButton color="inherit">
                         <PersonIcon />
                     </IconButton>
@@ -267,8 +272,8 @@ export default function Dashboard(props) {
                 <Container maxWidth="lg" className={classes.container}>
                     <Filters align="center" />
                     <Divider />
-                    <GridTable 
-                        rows={prepareData(MockItems)}
+                    <GridTable
+                        rows={prepareData(props.data)}
                     />
                     <Box pt={4}>
                         <CopyrightFooter />
