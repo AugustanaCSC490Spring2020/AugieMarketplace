@@ -17,7 +17,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import clsx from 'clsx';
 import { default as React } from 'react';
-import { CopyrightFooter, Filters, GridTable } from '../../components';
+import { CopyrightFooter, Filters, GridTable, ItemGridList } from '../../components';
+import { MockItems } from '../../data/mockData';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -184,10 +185,24 @@ function SearchBar(props) {
     );
 }
 
+function prepareData(data): [] {
+    let rows = [], cells;
+
+    for (let i = 0; i < data.length; i += 3) {
+        cells = [];
+        for (let j = 0; i+j<data.length &&j<3; j++) {
+            cells.push(JSON.parse(JSON.stringify(data[i+j])));
+        }
+        rows.push(cells);
+    }
+
+    console.log(rows)
+    return rows;
+}
+
 export default function Dashboard(props) {
 
     const classes = useStyles();
-
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -250,12 +265,13 @@ export default function Dashboard(props) {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Filters align="center"/>
-                    {/*we add the components we want here i.e. card grid and the like*/}
-
-                    <GridTable />
+                    <Filters align="center" />
+                    <Divider />
+                    <GridTable 
+                        rows={prepareData(MockItems)}
+                    />
                     <Box pt={4}>
-                        <CopyrightFooter/>
+                        <CopyrightFooter />
                     </Box>
                 </Container>
             </main>

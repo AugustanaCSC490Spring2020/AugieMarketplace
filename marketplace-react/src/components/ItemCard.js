@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,16 +20,22 @@ const useStyles = makeStyles(theme => ({
         height: 0,
         paddingTop: '56.25%', // 16:9
     },
-    avatar: {
-        backgroundColor: blue[500],
-    },
     overlay: {
         position: 'absolute',
         bottom: '90px',
         right: '10px',
         color: 'black',
         backgroundColor: 'white'
-    }
+    },
+    cardContent: {
+        background:
+            'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+            'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+        //backgroundColor: 'rgba(245, 245, 245, 0.4)'
+    },
+    icon: {
+        color: 'white',
+    },
 }));
 
 export default function ItemCard(props) {
@@ -35,28 +44,27 @@ export default function ItemCard(props) {
 
     return (
         <Card className={classes.root}>
+            <GridListTileBar
+                title={name}
+                titlePosition="top"
+                actionIcon={
+                    <IconButton aria-label={`star ${name}`} className={classes.icon}>
+                        <FavoriteIcon />
+                    </IconButton>
+                }
+                actionPosition="left"
+                className={classes.titleBar}
+            />
+            {/* <CardContent className={classes.cardContent}>
+                <Typography variant="body2" color="textSecondary" component="p" >{name}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p" >{price}</Typography>
+            </CardContent> */}
+
             <CardMedia
                 className={classes.media}
                 image="mockImage.jpg"
             >
             </CardMedia>
-            <IconButton className={classes.overlay}>
-                <FavoriteIcon />
-            </IconButton>
-
-            {/* <CardHeader
-                avatar={
-                    <Avatar>{user.name.charAt(0)}</Avatar>
-                }
-                title={name}
-                subheader={price}
-            /> */}
-
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p" >{name}</Typography>
-                <Typography variant="body2" color="textSecondary" component="p" >{price}</Typography>
-            </CardContent>
-
         </Card>
     );
 }

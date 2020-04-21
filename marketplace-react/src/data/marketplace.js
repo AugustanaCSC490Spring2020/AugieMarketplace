@@ -18,7 +18,9 @@ export interface Item {
     status: Boolean,
     datePosted: SimpleDate,
     description: String,
-    tags: String[]
+    featured: Boolean,
+    tags: String[],
+    imgs:String[],
     //images: figure out a way to store the images 
 }
 
