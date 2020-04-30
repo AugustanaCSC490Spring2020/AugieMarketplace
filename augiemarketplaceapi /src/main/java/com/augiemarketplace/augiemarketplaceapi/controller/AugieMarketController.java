@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -33,11 +34,17 @@ public class AugieMarketController {
         return augieMarketService.getListOfItemsOfUser(userId);
     }
 
+    @RequestMapping(value = "/list/items/all", method = RequestMethod.GET, produces = {"application/json"})
+    public List<ItemModel> getListOfAllItems()
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.getListOfAllItems();
+    }
+
     //must include itemId in Modal
     @RequestMapping(value = "/update/item", method = RequestMethod.PUT, produces = {"application/json"})
     public String updateItem(@RequestParam(value = "uuid") String userId, @RequestBody ItemModel updatedItem)
             throws IOException, ExecutionException, InterruptedException {
-        return augieMarketService.updateItem(userId,updatedItem);
+        return augieMarketService.updateItem(userId, updatedItem);
     }
 
     //Returns unique user uuid

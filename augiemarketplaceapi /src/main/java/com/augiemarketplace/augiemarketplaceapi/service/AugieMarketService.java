@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
@@ -97,5 +98,25 @@ public class AugieMarketService {
             return "Item updated!";
         }
         return "Item was not found!";
+    }
+
+    public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException {
+        int count = 0;
+        Firestore dbFireStore = FirestoreClient.getFirestore();
+        Iterable<DocumentReference> documentReference = dbFireStore.collection("springItems").listDocuments();
+        List<ItemModel> listOfAllItems = new ArrayList<>();
+        List<DocumentReference> docList = new ArrayList<>();
+        documentReference.forEach(docList::add);
+        for (DocumentReference doc : docList) {
+            ApiFuture<DocumentSnapshot> future = doc.get();
+            DocumentSnapshot document = future.get();
+            if (document.exists()) {
+                List<ItemModel> list = document.toObject(ItemWrapper.class).getItemModelList();
+                list.forEach(item -> {
+                    listOfAllItems.add(item);
+                });
+            }
+        }
+        return listOfAllItems;
     }
 }
