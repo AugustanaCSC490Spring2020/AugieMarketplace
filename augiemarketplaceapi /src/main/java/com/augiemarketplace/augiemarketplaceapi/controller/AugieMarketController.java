@@ -4,12 +4,11 @@ import com.augiemarketplace.augiemarketplaceapi.model.ItemModel;
 import com.augiemarketplace.augiemarketplaceapi.service.AugieMarketService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 @RestController
@@ -23,10 +22,9 @@ public class AugieMarketController {
     }
 
     @RequestMapping(value = "/post/item", method = RequestMethod.POST, produces = {"application/json"})
-    public void postItemUser(@RequestBody ItemModel itemInfo, @RequestParam String userId)
-            throws IOException {
-
-
+    public String postItemUser(@RequestBody ItemModel itemInfo, @RequestParam(value = "uuid") String uuid)
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.postItem(itemInfo, uuid);
     }
 
     //Returns unique user uuid

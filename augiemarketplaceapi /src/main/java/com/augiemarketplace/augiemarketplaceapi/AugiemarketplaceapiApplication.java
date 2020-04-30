@@ -5,9 +5,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.FileInputStream;
 
+@EnableSwagger2
 @SpringBootApplication
 public class AugiemarketplaceapiApplication {
 
