@@ -10,12 +10,10 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.cloud.FirestoreClient;
 import org.bson.types.ObjectId;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -54,9 +52,9 @@ public class AugieMarketService {
                 .build();
         Firestore dbFireStore = FirestoreClient.getFirestore();
         ItemWrapper oldList = getListOfItemsOfUser(uuid);
-        List<ItemModel> details = oldList.getItemModelList();
         //adds item if user has a list
-        if (details != null) {
+        if (oldList != null) {
+            List<ItemModel> details = oldList.getItemModelList();
             details.add(updateItem);
             oldList.setItemModelList(details);
             ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
@@ -67,7 +65,7 @@ public class AugieMarketService {
             ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
                     document(uuid).set(wrapper);
         }
-        return "success;";
+        return "success";
     }
 
     public ItemWrapper getListOfItemsOfUser(String userId) throws ExecutionException, InterruptedException {
@@ -81,7 +79,23 @@ public class AugieMarketService {
         return null;
     }
 
-    public ItemModel getItemsForUser(String userId) {
-        return null;
+    //must include id of item you want to update in modal
+    public String updateItem(String userId, ItemModel itemToUpdate) throws ExecutionException, InterruptedException {
+        ItemWrapper itemsOfUser = getListOfItemsOfUser(userId);
+        List<ItemModel> listOfItems = itemsOfUser.getItemModelList();
+        ItemModel itemToReplace = null;
+        for (ItemModel item : listOfItems) {
+            if (item.getItemId().equalsIgnoreCase(itemToUpdate.getItemId())) itemToReplace = item;
+        }
+        if (itemToReplace != null){
+            listOfItems.remove(itemToReplace);
+            listOfItems.add(itemToUpdate);
+            itemsOfUser.setItemModelList(listOfItems);
+            Firestore dbFireStore = FirestoreClient.getFirestore();
+            ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
+                    document(userId).set(itemsOfUser);
+            return "Item updated!";
+        }
+        return "Item was not found!";
     }
 }
