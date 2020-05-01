@@ -6,9 +6,11 @@ import com.augiemarketplace.augiemarketplaceapi.service.AugieMarketService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
@@ -23,13 +25,13 @@ public class AugieMarketController {
     }
 
     @RequestMapping(value = "/post/item", method = RequestMethod.POST, produces = {"application/json"})
-    public String postItemUser(@RequestBody ItemModel itemInfo, @RequestParam(value = "uuid") String uuid)
+    public String postItemUser(@RequestBody ItemModel itemInfo, @RequestParam(value = "userId") String uuid)
             throws IOException, ExecutionException, InterruptedException {
         return augieMarketService.postItem(itemInfo, uuid);
     }
 
-    @RequestMapping(value = "/list/items", method = RequestMethod.POST, produces = {"application/json"})
-    public ItemWrapper getListOfItemsOfUser(@RequestParam(value = "uuid") String userId)
+    @RequestMapping(value = "/list/items/user", method = RequestMethod.POST, produces = {"application/json"})
+    public ItemWrapper getListOfItemsOfUser(@RequestParam(value = "userId") String userId)
             throws IOException, ExecutionException, InterruptedException {
         return augieMarketService.getListOfItemsOfUser(userId);
     }
@@ -42,9 +44,21 @@ public class AugieMarketController {
 
     //must include itemId in Modal
     @RequestMapping(value = "/update/item", method = RequestMethod.PUT, produces = {"application/json"})
-    public String updateItem(@RequestParam(value = "uuid") String userId, @RequestBody ItemModel updatedItem)
+    public String updateItem(@RequestParam(value = "userId") String userId, @RequestBody ItemModel updatedItem)
             throws IOException, ExecutionException, InterruptedException {
         return augieMarketService.updateItem(userId, updatedItem);
+    }
+
+    @RequestMapping(value = "/delete/item", method = RequestMethod.DELETE, produces = {"application/json"})
+    public String deleteItem(@RequestParam(value = "itemId") String itemId, @RequestParam String userId)
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.deleteItem(itemId, userId);
+    }
+
+    @RequestMapping(value = "/post/multiple/images", method = RequestMethod.POST, produces = {"application/json"})
+    public String postImagesOfItem(@RequestParam(value = "itemId") String itemId, @RequestParam("images") MultipartFile[]  images)
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.postImagesOfItem(itemId, images);
     }
 
     //Returns unique user uuid

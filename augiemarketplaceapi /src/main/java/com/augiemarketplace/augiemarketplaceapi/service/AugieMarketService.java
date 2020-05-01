@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.cloud.FirestoreClient;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -101,7 +102,6 @@ public class AugieMarketService {
     }
 
     public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException {
-        int count = 0;
         Firestore dbFireStore = FirestoreClient.getFirestore();
         Iterable<DocumentReference> documentReference = dbFireStore.collection("springItems").listDocuments();
         List<ItemModel> listOfAllItems = new ArrayList<>();
@@ -118,5 +118,31 @@ public class AugieMarketService {
             }
         }
         return listOfAllItems;
+    }
+
+    public String postImagesOfItem(String itemId, MultipartFile[] images) {
+        Firestore dbFireStore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.document("gs://augiemarketplace.appspot.com").set(images);
+        return  "uploaded";
+    }
+
+    public String deleteItem(String itemId, String userId) throws ExecutionException, InterruptedException {
+        ItemWrapper items = getListOfItemsOfUser(userId);
+        ItemModel itemToRemove = null;
+        List<ItemModel> listOfItems = items.getItemModelList();
+        for (ItemModel itemOfUser : listOfItems) {
+            if (itemOfUser.getItemId().equalsIgnoreCase(itemId)) {
+                itemToRemove = itemOfUser;
+            }
+        }
+        if (itemToRemove != null) {
+            listOfItems.remove(itemToRemove);
+            items.setItemModelList(listOfItems);
+            Firestore dbFireStore = FirestoreClient.getFirestore();
+            ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
+                    document(userId).set(items);
+            return "deleted!";
+        }
+        return "could not find item!";
     }
 }
