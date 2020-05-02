@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './views/Main/styles.js';
 import Login from './views/Login/Login';
 import Dashboard from './views/Dashboard/Dashboard';
 import CreatePost from './views/CreatePost/CreatePost';
@@ -8,6 +8,13 @@ import Submit from './views/CreatePost/Submit';
 import { createItem, MockUser, MockItems } from './data/mockData';
 import orderBy from 'lodash/orderBy'
 import { createSimpleDate } from './data/marketplace';
+import Main from './views/Main/Main'
+import routes from "./routes";
+
+
+
+
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,6 +24,8 @@ export default class App extends React.Component {
       user: MockUser,
       query: ""
     }
+
+    this.storeSession(this.state)
 
     if (this.hasSaves) {
       this.getSession()
@@ -58,17 +67,15 @@ export default class App extends React.Component {
     img: String
   ) => {
     let item = createItem(name, user, price, createSimpleDate(new Date()), description, tags, [img]),
-    updatedData = this.state.data;
+      updatedData = this.state.data;
     updatedData.push(item);
-    this.setState({data: updatedData});
+    this.setState({ data: updatedData });
   }
 
   render() {
     return (
       <React.Fragment>
-        {/* components go here */}
-        <Login></Login>
-        {/* <Dashboard
+        <Main
           data={orderBy(
             this.state.query
               ? this.state.data.filter(x =>
@@ -80,7 +87,7 @@ export default class App extends React.Component {
           query={this.state.query}
           setQuery={this.setQuery}
           createPost={this.createPost}
-        /> */}
+        />
       </React.Fragment>
     );
   }

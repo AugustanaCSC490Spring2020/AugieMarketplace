@@ -1,7 +1,10 @@
 export interface User {
-    name: String,
+    firstName: String,
+    lastName: String,
     email: String, //primary key
-    phoneNumber: Number
+    imageUrl: String,
+    phoneNumber: Number,
+    id: String
 }
 
 export interface SimpleDate {
@@ -17,7 +20,7 @@ export interface Item {
     user: String, //user item belongs to
     price: Number,
     //status: Boolean, should only be for the backend
-    datePosted: SimpleDate,
+    dateCreated: Date,
     description: String,
     tags: String[],
     imgs: String[],
