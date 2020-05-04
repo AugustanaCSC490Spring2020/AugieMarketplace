@@ -16,7 +16,7 @@ public class AugiemarketplaceapiApplication {
 	public static void main(String[] args) {
 		try {
 			FileInputStream serviceAccount =
-					new FileInputStream("/Users/samihsghier/Desktop/SI/AugieMarketplace/augiemarketplaceapi /src/main/resources/firebase.json");
+					new FileInputStream("firebase.json");
 
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
