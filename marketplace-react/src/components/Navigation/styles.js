@@ -79,12 +79,12 @@ export const useStyles = makeStyles(theme => ({
     },
 }));
 
-const styles = {
-    stickToBottom: {
-        width: '100%',
-        position: 'fixed',
-        bottom: 0,
-    },
-};
+// const styles = {
+//     stickToBottom: {
+//         width: '100%',
+//         position: 'fixed',
+//         bottom: 0,
+//     },
+// };
 
 const drawerWidth = 240;

@@ -1,14 +1,13 @@
-import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
-import { ChevronLeft, InsertInvitation, Menu } from '@material-ui/icons';
+import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ChevronLeft } from '@material-ui/icons';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HelpIcon from '@material-ui/icons/Help';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import { default as React } from 'react';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
-import { CopyrightFooter } from '..';
-import { Cart, CreatePostDialogue, Profile, SignOut } from '../../views';
+import { NavLink } from 'react-router-dom';
+import { CreatePostDialogue, SignOut } from '../../views';
 import { useStyles } from './styles';
 
 export default function SideBar(props) {
@@ -34,7 +33,8 @@ export default function SideBar(props) {
                     <NavLink
                         to="/dashboard"
                         className="dashboard"
-                        activeClassName="active">
+                        activeClassName="active"
+                        styles={{ textDecoration: 'none' }}>
                         <ListItem button>
                             <ListItemIcon>
                                 <DashboardIcon />

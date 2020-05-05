@@ -1,14 +1,8 @@
-import { AppBar, Box, Container, CssBaseline, Divider, Drawer, FormControl, Input, InputAdornment, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
-import { ChevronLeft, InsertInvitation, Menu, Search } from '@material-ui/icons';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import HelpIcon from '@material-ui/icons/Help';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import SettingsIcon from '@material-ui/icons/Settings';
+import { AppBar, FormControl, IconButton, Input, InputAdornment, Toolbar, Typography } from '@material-ui/core';
+import { Menu, Search } from '@material-ui/icons';
 import clsx from 'clsx';
 import { default as React } from 'react';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
-import { CopyrightFooter } from '..';
-import { Cart, CreatePostDialogue, Profile, SignOut } from '../../views';
+import { Cart, Profile } from '../../views';
 import { useStyles } from './styles';
 
 function SearchBar(props) {

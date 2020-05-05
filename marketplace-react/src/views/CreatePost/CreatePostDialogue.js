@@ -1,4 +1,4 @@
-import { Button, Dialog, Divider, DialogActions, DialogContent, IconButton, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogContent, Divider, Typography } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,9 +7,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
 import CreateIcon from '@material-ui/icons/Create';
-import DoneIcon from '@material-ui/icons/Done';
 import { default as React } from 'react';
 import Review from './Review';
 import UpdateInfo from './UpdateInfo';

@@ -10,7 +10,7 @@ const hist = createBrowserHistory();
 ReactDOM.render(
   <Router history={hist}>
   {/* wonder how to integrate this with login ... hmnn */}
-    <Route exact path="/" component={App} /> 
+    <Route path="/" component={App} /> 
   </Router>,
   document.getElementById("root")
 );

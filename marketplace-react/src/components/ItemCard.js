@@ -81,9 +81,8 @@
 // }
 
 
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Favorite } from '@material-ui/icons';
 import { default as React } from 'react';
 
 const useStyles = makeStyles({

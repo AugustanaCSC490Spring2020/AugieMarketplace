@@ -1,12 +1,13 @@
-import { Box, Container, CssBaseline, FormControl, IconButton, Input, InputAdornment } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { Box, Container, CssBaseline } from '@material-ui/core';
 import { default as React } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { CopyrightFooter } from '../../components';
-import SideBar from '../../components/Navigation/SideBar';
 import MenuBar from '../../components/Navigation/MenuBar';
-import routes from "../../routes";
+import SideBar from '../../components/Navigation/SideBar';
 import { useStyles } from "../../components/Navigation/styles";
+import routes from "../../routes";
+import { Dashboard } from '@material-ui/icons';
+import DashboardView from '../Dashboard/Dashboard';
 
 //cite source
 const switchRoutes = (
@@ -19,7 +20,6 @@ const switchRoutes = (
                     key={key}
                 />
             );
-            return null;
         })}
         <Redirect from="/" to="/dashboard" />
     </Switch>
@@ -55,17 +55,18 @@ export default function Main(props) {
                 handleDrawerOpen={handleDrawerOpen}
             />
 
-            {/* <main className={classes.content}>
+            <div className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-
+                        {switchRoutes}
                     <Box pt={4}>
                         <CopyrightFooter />
                     </Box>
                 </Container>
-            </main> */}
+            </div>
 
-            <div/>
         </Router >
+
+        // <DashboardView/>
     );
 }
