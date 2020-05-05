@@ -1,20 +1,8 @@
+import orderBy from 'lodash/orderBy';
 import React from 'react';
-import './views/Main/styles.js';
-import Login from './views/Login/Login';
-import Dashboard from './views/Dashboard/Dashboard';
-import CreatePost from './views/CreatePost/CreatePost';
-import CreatePostForm from './views/CreatePost/CreatePostForm';
-import Submit from './views/CreatePost/Submit';
-import { createItem, MockUser, MockItems } from './data/mockData';
-import orderBy from 'lodash/orderBy'
 import { createSimpleDate } from './data/marketplace';
-import Main from './views/Main/Main'
-import routes from "./routes";
-
-
-
-
-
+import { createItem, MockItems, MockUser } from './data/mockData';
+import Main from './views/Main/Main';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,11 +35,11 @@ export default class App extends React.Component {
   getSession = () => {
     let st = localStorage.getItem('augieMarketPlace');
     st = JSON.parse(st);
-    this.state = {
+    this.setState({
       data: st.data,
       user: st.user,
       query: ""
-    }
+    })
   }
 
   setQuery = (val) => {

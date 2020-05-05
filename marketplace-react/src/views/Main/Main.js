@@ -1,11 +1,12 @@
-import { AppBar, Box, Container, CssBaseline, FormControl, IconButton, Input, InputAdornment } from '@material-ui/core';
+import { Box, Container, CssBaseline, FormControl, IconButton, Input, InputAdornment } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { default as React } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { CopyrightFooter } from '../../components';
 import SideBar from '../../components/Navigation/SideBar';
+import MenuBar from '../../components/Navigation/MenuBar';
 import routes from "../../routes";
-import { useStyles } from './styles';
+import { useStyles } from "../../components/Navigation/styles";
 
 //cite source
 const switchRoutes = (
@@ -24,25 +25,6 @@ const switchRoutes = (
     </Switch>
 );
 
-function SearchBar(props) {
-    return (
-        <FormControl>
-            <Input
-                endAdornment={
-                    <InputAdornment
-                        position="end">
-                        <IconButton>
-                            <Search style={{ color: 'white' }} />
-                        </IconButton>
-                    </InputAdornment>
-                }
-                value={props.query}
-                onChange={e => props.setQuery(e.target.value)}
-            />
-        </FormControl>
-    );
-}
-
 export default function Main(props) {
 
     const classes = useStyles();
@@ -57,32 +39,33 @@ export default function Main(props) {
 
     return (
         <Router>
+
             <div className={classes.root}>
                 <CssBaseline />
-
-                <AppBar 
-                    open={open}
-                    query={props.query}
-                    setQuery={props.setQuery}
-                    handleDrawerOpen={handleDrawerOpen}
-                />
                 <SideBar
                     open={open}
                     handleDrawerClose={handleDrawerClose}
                 />
-                
-                <main className={classes.content}>
-                    <div className={classes.appBarSpacer} />
-                    <Container maxWidth="lg" className={classes.container}>
-
-                        {switchRoutes}
-
-                        <Box pt={4}>
-                            <CopyrightFooter />
-                        </Box>
-                    </Container>
-                </main>
             </div>
-        </Router>
+
+            <MenuBar
+                open={open}
+                query={props.query}
+                setQuery={props.setQuery}
+                handleDrawerOpen={handleDrawerOpen}
+            />
+
+            {/* <main className={classes.content}>
+                <div className={classes.appBarSpacer} />
+                <Container maxWidth="lg" className={classes.container}>
+
+                    <Box pt={4}>
+                        <CopyrightFooter />
+                    </Box>
+                </Container>
+            </main> */}
+
+            <div/>
+        </Router >
     );
 }

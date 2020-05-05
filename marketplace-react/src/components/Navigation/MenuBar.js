@@ -1,5 +1,5 @@
-import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
-import { ChevronLeft, InsertInvitation, Menu } from '@material-ui/icons';
+import { AppBar, Box, Container, CssBaseline, Divider, Drawer, FormControl, Input, InputAdornment, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import { ChevronLeft, InsertInvitation, Menu, Search } from '@material-ui/icons';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HelpIcon from '@material-ui/icons/Help';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -9,9 +9,28 @@ import { default as React } from 'react';
 import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import { CopyrightFooter } from '..';
 import { Cart, CreatePostDialogue, Profile, SignOut } from '../../views';
-import { useStyles } from './MainStyles';
+import { useStyles } from './styles';
 
-export default function AppBar(props) {
+function SearchBar(props) {
+    return (
+        <FormControl>
+            <Input
+                endAdornment={
+                    <InputAdornment
+                        position="end">
+                        <IconButton>
+                            <Search style={{ color: 'white' }} />
+                        </IconButton>
+                    </InputAdornment>
+                }
+                value={props.query}
+                onChange={e => props.setQuery(e.target.value)}
+            />
+        </FormControl>
+    );
+}
+
+export default function MenuBar(props) {
     const classes = useStyles();
     return (
         <div>
