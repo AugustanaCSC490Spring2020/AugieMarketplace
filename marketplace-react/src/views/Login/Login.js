@@ -9,6 +9,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/actions/auth";
+
 const useStyles = makeStyles((theme) => ({
     root: {
       height: '100vh',
@@ -38,7 +41,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
     const [idToken, setIdToken] = useState(null)
+    
+    const dispatch = useDispatch();
     const classes = useStyles();
+
+    if(idToken) {
+      dispatch(login(idToken))
+    }
 
     function signIn() {
         signInWithGoogle()
@@ -63,7 +72,9 @@ export default function Login(props) {
             console.log("currentUser changed to:", nextUser)
 
             if (auth.currentUser) {
-                setIdToken(await auth.currentUser.getIdToken())
+                const idToken = await auth.currentUser.getIdToken()
+                setIdToken(idToken)
+                
             } else {
                 setIdToken(null)
             }

@@ -8,3 +8,7 @@ import users, * as fromUsers from './users';
 export default combineReducers({
   items, users, auth,
 });
+
+// token
+export const selectLoggingIn = (state) => fromAuth.selectLoggingIn(state.auth);
+export const selectFirebaseToken = (state) => fromAuth.selectFirebaseToken(state.auth);
