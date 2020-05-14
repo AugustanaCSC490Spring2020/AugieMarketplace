@@ -2,7 +2,7 @@ import { Box, CssBaseline, makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import CopyrightFooter from "./components/CopyrightFooter";
 import NavBar from './components/Navigation/NavBar';
@@ -11,6 +11,9 @@ import { selectFirebaseToken } from './redux/reducers';
 import routes from './utils/routes';
 import Login from './views/Login/Login';
 import Cart from './views/Miscelleneous/FavoritesCart';
+
+import { MockItems } from './data/mockData'
+import { getMockItems } from './redux/actions/items'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const App = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
   const firebaseToken = useSelector(selectFirebaseToken);
   const [appLoading, setAppLoading] = useState(false);
   const defaultRoute = firebaseToken ? '/dashboard' : '/';
@@ -45,6 +49,8 @@ const App = () => {
   useEffect(() => {
     const getItemsAsync = async () => {
       setAppLoading(true);
+      await new Promise(r => setTimeout(r, 2000));
+      dispatch(getMockItems(MockItems))
       setAppLoading(false);
     };
 

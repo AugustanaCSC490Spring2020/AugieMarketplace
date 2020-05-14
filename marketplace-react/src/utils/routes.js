@@ -1,5 +1,5 @@
 import { Dashboard } from '@material-ui/icons';
-import { DashboardView } from '../views';
+import { DashboardView, ItemDetails } from '../views';
 
 const routes = [
   {
@@ -7,6 +7,11 @@ const routes = [
     name: "Dashboard",
     icon: Dashboard,
     component: DashboardView
+  },
+  {
+    path: "/items/:itemId",
+    name: "ViewItem",
+    component: ItemDetails
   },
   //could add other components here
 ];
