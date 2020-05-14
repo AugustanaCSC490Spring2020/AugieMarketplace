@@ -1,5 +1,5 @@
-import { Dashboard, Person, ShoppingCart } from '@material-ui/icons';
-import { Cart, DashboardView, Profile } from './views';
+import { Dashboard } from '@material-ui/icons';
+import { DashboardView } from './views';
 
 const routes = [
   {
@@ -8,18 +8,7 @@ const routes = [
     icon: Dashboard,
     component: DashboardView
   },
-  {
-    path: "/profile",
-    name: "User Profile",
-    icon: Person,
-    component: Profile
-  },
-  {
-    path: "/cart",
-    name: "Cart",
-    icon: ShoppingCart,
-    component: Cart
-  }
+  //could add other components here
 ];
 
 export default routes;

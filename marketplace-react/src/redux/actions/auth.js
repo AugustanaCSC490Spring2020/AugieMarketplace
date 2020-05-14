@@ -1,7 +1,7 @@
 import { AuthActionTypes } from '../consts';
 import Axios from 'axios';
 
-const { LODING_AUTH, LOG_IN, LOG_OUT, ERROR_AUTH } = AuthActionType;
+const { LODING_AUTH, LOG_IN, LOG_OUT, ERROR_AUTH } = AuthActionTypes;
 
 export const logout = () => ({ type: LOG_OUT });
 

@@ -1,6 +1,7 @@
 import { Container, Divider } from '@material-ui/core';
 import { default as React } from 'react';
 import { Filters, GridTable } from '../../components';
+import { MockItems } from '../../data/mockData'
 
 function prepareData(data, numCol): [] {
     let rows = [], cells;
@@ -17,12 +18,13 @@ function prepareData(data, numCol): [] {
 }
 
 export default function DashboardView(props) {
+    const data = MockItems;
     return (
         <Container>
             <Filters align="center" />
             <Divider />
             <GridTable
-                rows={prepareData(props.data, 3)}
+                rows={prepareData(data, 3)}
             />
         </Container>
     )
