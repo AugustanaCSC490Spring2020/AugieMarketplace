@@ -53,45 +53,6 @@ export default function SideBar(props) {
                         />
                     </NavLink>
 
-                    <NavLink
-                        to="/notifications"
-                        className="notifications"
-                        activeClassName="active">
-                        <ListItem button>
-                            <ListItemIcon>
-                                <NotificationsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Notifications" />
-                        </ListItem>
-                    </NavLink>
-                </List>
-
-                <Divider />
-                <List>
-                    <NavLink
-                        to="/help"
-                        className="help"
-                        activeClassName="active">
-                        <ListItem button>
-                            <ListItemIcon>
-                                <HelpIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Help" />
-                        </ListItem>
-                    </NavLink>
-
-                    <NavLink
-                        to="/settings"
-                        className="settings"
-                        activeClassName="active">
-                        <ListItem button>
-                            <ListItemIcon>
-                                <SettingsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Settings" />
-                        </ListItem>
-                    </NavLink>
-
                     <SignOut />
                 </List>
             </Drawer>

@@ -5,8 +5,8 @@ import ItemDetails from '../views/ItemDetails/ItemDetails';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345,
-        position: "relative"
+        position: "relative",
+        width: '300px'
     },
     media: {
         height: 0,
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         right: '10px',
         color: 'black',
         backgroundColor: 'white'
-    }
+    },
 });
 
 export default function ItemCard(props) {

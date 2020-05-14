@@ -1,5 +1,5 @@
 import { Dashboard } from '@material-ui/icons';
-import { DashboardView } from './views';
+import { DashboardView } from '../views';
 
 const routes = [
   {
