@@ -8,13 +8,13 @@ import { useStyles } from "../../components/Navigation/styles";
 import routes from "../../routes";
 import { Dashboard } from '@material-ui/icons';
 import DashboardView from '../Dashboard/Dashboard';
-
+import PrivateRoute from '../utils/PrivateRoute'
 //cite source
 const switchRoutes = (
     <Switch>
         {routes.map((prop, key) => {
             return (
-                <Route
+                <PrivateRoute
                     path={prop.layout + prop.path}
                     component={prop.component}
                     key={key}
@@ -66,7 +66,5 @@ export default function Main(props) {
             </div>
 
         </Router >
-
-        // <DashboardView/>
     );
 }

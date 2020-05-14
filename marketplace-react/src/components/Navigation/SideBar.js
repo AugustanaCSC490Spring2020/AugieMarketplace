@@ -34,12 +34,13 @@ export default function SideBar(props) {
                         to="/dashboard"
                         className="dashboard"
                         activeClassName="active"
-                        styles={{ textDecoration: 'none' }}>
+                        className={classes.link}>
                         <ListItem button>
                             <ListItemIcon>
                                 <DashboardIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Dashboard" />
+                            <ListItemText className="link"
+                                primary="Dashboard" />
                         </ListItem>
                     </NavLink>
 

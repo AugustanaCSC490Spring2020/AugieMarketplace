@@ -77,6 +77,19 @@ export const useStyles = makeStyles(theme => ({
     fixedHeight: {
         height: 240,
     },
+    link: {
+        // width: "auto",
+        // transition: "all 300ms linear",
+        // margin: "10px 15px 0",
+        // borderRadius: "3px",
+        // position: "relative",
+        // display: "block",
+        // padding: "10px 15px",
+        // backgroundColor: "transparent",
+        //...defaultFont
+        textDecoration: 'none',
+        ...theme.typography.body1
+    }
 }));
 
 // const styles = {

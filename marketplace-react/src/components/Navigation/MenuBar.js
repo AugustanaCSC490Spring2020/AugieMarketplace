@@ -5,6 +5,7 @@ import { default as React } from 'react';
 import { Cart, Profile } from '../../views';
 import { useStyles } from './styles';
 
+//add conditional rendering
 function SearchBar(props) {
     return (
         <FormControl>
@@ -40,8 +41,8 @@ export default function MenuBar(props) {
                             <Menu />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            Augie MarketPlace
-                     </Typography>
+                            AugieMarketPlace
+                        </Typography>
                         {/* Add if statement */}
                         <div>
                             <SearchBar

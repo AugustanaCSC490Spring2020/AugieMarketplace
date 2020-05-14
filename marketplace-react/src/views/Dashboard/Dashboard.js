@@ -22,7 +22,7 @@ export default function DashboardView(props) {
             <Filters align="center" />
             <Divider />
             <GridTable
-                rows={prepareData(props.data, 4)}
+                rows={prepareData(props.data, 3)}
             />
         </Container>
     )

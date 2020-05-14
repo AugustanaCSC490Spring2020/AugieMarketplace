@@ -7,7 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import history from '../../utils/history'
+import {useLocation} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
     const [idToken, setIdToken] = useState(null)
     const classes = useStyles();
+    let location = useLocation();
 
     function signIn() {
         signInWithGoogle()
@@ -46,6 +49,22 @@ export default function Login(props) {
 
     function signOut() {
         auth.signOut()
+    }
+
+    function onSubmit() {
+      
+      if (auth.currentUser) {
+        signOut()
+      } else {
+        signIn();
+        history.push('/dashboard');
+      }
+
+      // fakeAuth.authenticate(() => {
+      //   history.replace(from);
+      // });
+      //check if it's an augustana email and if not give error
+      //store in redux that we are logged in   
     }
 
     useEffect(() => {
@@ -93,7 +112,7 @@ export default function Login(props) {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={auth.currentUser ? signOut : signIn}
+                onClick={onSubmit}
               >
                 {auth.currentUser ? "Sign Out" : "Sign In with Augustana Google Account"}
             </Button>
