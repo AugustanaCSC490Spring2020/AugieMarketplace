@@ -3,25 +3,27 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import NavBar from './components/Navigation/NavBar';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import CopyrightFooter from "./components/CopyrightFooter";
+import NavBar from './components/Navigation/NavBar';
 import SideBar from './components/Navigation/SideBar';
 import { selectFirebaseToken } from './redux/reducers';
-import { ItemDetails } from './views';
+import routes from './utils/routes';
+import Login from './views/Login/Login';
 
 const useStyles = makeStyles(theme => ({
   root: {
-      display: 'flex',
+    display: 'flex',
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
   },
   container: {
-      //paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+    //paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   }
 }));
 
@@ -78,7 +80,7 @@ const App = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* <Switch>
+          <Switch>
             {
               firebaseToken
                 ? routes.map((route) => (
@@ -93,10 +95,10 @@ const App = () => {
                 )
             }
             <Redirect to={defaultRoute} />
-          </Switch> */}
+          </Switch>
 
-          <ItemDetails/>
-      
+          {/* <ItemDetails/> */}
+
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
