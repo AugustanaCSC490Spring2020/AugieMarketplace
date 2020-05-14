@@ -65,6 +65,7 @@ export default function ItemDetails() {
         }
     }
 
+    //for basic hover
     const getIcon = () => {
         return (isMouseOver) ? (<FavoriteIcon />) : (<FavoriteBorderIcon />)
     }
@@ -124,8 +125,10 @@ export default function ItemDetails() {
                     </Grid>
 
                     <Grid item>
-                        <IconButton onClick={() => addToFavorites()} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
+                        <IconButton onClick={() => addToFavorites()} onMouseOver={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
                             {getIcon()}
+                            {/* <FavoriteBorderIcon/> */}
+                            {/* <FavoriteIcon/> */}
                         </IconButton>
                     </Grid>
                 </Grid>
