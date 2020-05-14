@@ -1,6 +1,6 @@
 
-import { AppBar, IconButton, Link, Toolbar } from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
+import { Menu, Favorite, ExitToApp } from "@material-ui/icons";
 import PersonIcon from "@material-ui/icons/Person";
 import PowerOffIcon from "@material-ui/icons/PowerOff";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -50,7 +50,7 @@ const NavBar = (props) => {
         className={clsx(classes.appBar, props.open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
-          <IconButton
+          {/* <IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
@@ -61,7 +61,7 @@ const NavBar = (props) => {
             )}
           >
             <Menu />
-          </IconButton>
+          </IconButton> */}
           <Link
             component="h1"
             variant="h6"
@@ -70,22 +70,28 @@ const NavBar = (props) => {
             className={classes.title}
             onClick={pushToDefaultRoute}
           >
-            Augie MarketPlace
+            AugieMarketPlace
           </Link>
           {firebaseToken && (
             <>
-              
-              <IconButton color="inherit" onClick={pushToProfile}>
-                <PersonIcon />
-              </IconButton>
 
-              <IconButton color="inherit" onClick={pushToShoppingCart}>
-                <ShoppingCartIcon />
-              </IconButton>
+              <Tooltip title="Profile">
+                <IconButton color="inherit" onClick={pushToProfile}>
+                  <PersonIcon />
+                </IconButton>
+              </Tooltip>
 
-              <IconButton color="inherit" onClick={() => dispatch(logout)}>
-                <PowerOffIcon />
-              </IconButton>
+              <Tooltip title="Favorites">
+                <IconButton color="inherit" onClick={pushToShoppingCart}>
+                  <Favorite />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="SignOut">
+                <IconButton color="inherit" onClick={() => dispatch(logout)}>
+                  <ExitToApp />
+                </IconButton>
+              </Tooltip>
 
 
             </>

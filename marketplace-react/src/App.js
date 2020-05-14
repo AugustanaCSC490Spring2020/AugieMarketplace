@@ -67,15 +67,7 @@ const App = () => {
     <div className={classes.root}>
       <CssBaseline />
 
-      <NavBar defaultRoute={defaultRoute}
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-      />
-
-      <SideBar
-        open={open}
-        handleDrawerClose={handleDrawerClose}
-      />
+      <NavBar defaultRoute={defaultRoute} />
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

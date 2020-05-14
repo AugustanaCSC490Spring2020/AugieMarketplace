@@ -3,6 +3,11 @@ import { default as React } from 'react';
 import { Filters, GridTable } from '../../components';
 import { MockItems } from '../../data/mockData'
 
+/**
+ * 
+ * @param {*} data 
+ * @param {*} numCol 
+ */
 function prepareData(data, numCol): [] {
     let rows = [], cells;
 
