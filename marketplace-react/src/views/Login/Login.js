@@ -1,5 +1,5 @@
 import { signInWithGoogle, auth } from "../../firebase/firebase";
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, Image } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -114,18 +114,16 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-          </div>
-          <div className="App">
-            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in"}</h2></p>
-
+            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in with your Augustana Google Account"}</h2></p>
             <Button
+                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
                 onClick={onSubmit}
               >
-                {auth.currentUser ? "Sign Out" : "Sign In with Augustana Google Account"}
+                {auth.currentUser ? "Sign Out" : "Sign In"}
             </Button>
 
             {/* <button onClick={signIn}>Sign in with Google</button>
@@ -133,7 +131,7 @@ export default function Login(props) {
 
             <p>The ID token is:</p>
             <code>{auth.currentUser ? idToken : "Please sign in"}</code> */}
-        </div>
+          </div>
         </Grid>
       </Grid>
     );
