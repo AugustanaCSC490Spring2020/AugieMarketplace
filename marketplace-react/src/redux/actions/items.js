@@ -77,6 +77,13 @@ export const getItems = () => (dispatch) => {
         });
 }
 
+export const getMockItems = (data) => (dispatch) => {
+    dispatch({
+        type: GET_ITEMS,
+        payload: data
+    });
+}
+
 export const getItemByID = (id) => (dispatch) => {
     dispatch({ type: LOADING_ITEMS });
     Axios

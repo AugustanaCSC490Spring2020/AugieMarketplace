@@ -1,6 +1,7 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { default as React } from 'react';
+import history from '../utils/history'
 
 const useStyles = makeStyles({
     root: {
@@ -22,28 +23,27 @@ const useStyles = makeStyles({
 
 export default function ItemCard(props) {
     const classes = useStyles();
+    const { id, name, user, price, imgs } = props
 
-    const viewItem = () => {
-        //add route
-    }
+    const pushToViewItem = () => history.push(`./items/${id}`);
 
     return (
         <Container>
             <Card className={classes.root}>
-                <CardActionArea onClick={() => viewItem()}>
+                <CardActionArea onClick={pushToViewItem}>
 
                     <CardMedia
                         className={classes.media}
-                        image={"MockImages/" + props.imgs[0] + ".jpg"}
-                        title={props.name}
+                        image={"MockImages/" + imgs[0] + ".jpg"}
+                        title={name}
                     />
 
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {props.name}
+                            {name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {"$" + props.price}
+                            {"$" + price}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

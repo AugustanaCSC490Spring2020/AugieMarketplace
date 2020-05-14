@@ -55,6 +55,7 @@ export default function GridTable(props) {
                             {row.map((cell, index) => (
                                 <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
+                                        id={cell.id}
                                         name={cell.name}
                                         user={cell.user}
                                         price={cell.price}
