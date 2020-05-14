@@ -11,6 +11,7 @@ import routes from "./utils/routes";
 import Login from "./views/Login/Login";
 import CopyrightFooter from "./components/CopyrightFooter"
 import { CssBaseline, Box} from '@material-ui/core'
+import { ItemDetails } from './views';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,7 +82,7 @@ const App = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Switch>
+          {/* <Switch>
             {
               firebaseToken
                 ? routes.map((route) => (
@@ -96,7 +97,9 @@ const App = () => {
                 )
             }
             <Redirect to={defaultRoute} />
-          </Switch>
+          </Switch> */}
+          
+          <ItemDetails/>
 
           <Box pt={4}>
             <CopyrightFooter />
