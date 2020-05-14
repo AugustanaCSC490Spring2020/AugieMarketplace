@@ -1,23 +1,13 @@
-import { Container, Divider, Fab, Tooltip, IconButton, makeStyles } from '@material-ui/core';
+import { Container, Divider } from '@material-ui/core';
 import { default as React } from 'react';
 import { Filters, GridTable } from '../../components';
-import { MockItems } from '../../data/mockData'
-import { Create } from '@material-ui/icons';
+import { MockItems } from '../../data/mockData';
+import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
 
-const useStyles = makeStyles({
-    createIconFab: {
-        // left: '100%',
-        margin: 0,
-        top: 'auto',
-        left: '92%',
-        bottom: 20,
-        position: 'fixed',
-    }
-})
 /**
- * 
- * @param {*} data 
- * @param {*} numCol 
+ * returns an array that represents the tabledata 'numCol' items per row
+ * @param {our array of items} data 
+ * @param {number of items per column} numCol 
  */
 function prepareData(data, numCol): [] {
     let rows = [], cells;
@@ -34,7 +24,6 @@ function prepareData(data, numCol): [] {
 }
 
 export default function DashboardView(props) {
-    const classes = useStyles();
     const data = MockItems;
     return (
         <Container>
@@ -43,15 +32,7 @@ export default function DashboardView(props) {
             <GridTable
                 rows={prepareData(data, 3)}
             />
-
-            {/* onclick link to createpost */}
-            <Fab className={classes.createIconFab} aria-label="create-post">
-                <Tooltip title="Create New Post">
-                    <IconButton>
-                        <Create/>
-                    </IconButton>
-                </Tooltip>
-            </Fab>
+            <CreatePostDialogue/>
         </Container>
     )
 }

@@ -1,13 +1,10 @@
-import { Button, Dialog, DialogContent, Divider, Typography } from '@material-ui/core';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Button, Dialog, DialogContent, Divider, Fab, IconButton, Tooltip, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
-import CreateIcon from '@material-ui/icons/Create';
+import { Create } from '@material-ui/icons';
 import { default as React } from 'react';
 import Review from './Review';
 import UpdateInfo from './UpdateInfo';
@@ -48,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     dialog: {
         fullWidth: true,
         maxWidth: 'md'
+    },
+    createIconFab: {
+        margin: 0,
+        top: 'auto',
+        left: '92%',
+        bottom: 20,
+        position: 'fixed',
     }
 }));
 
@@ -111,12 +115,14 @@ export default function CreatePostDialogue(props) {
 
     return (
         <div>
-            <ListItem button onClick={handleClickOpen}>
-                <ListItemIcon>
-                    <CreateIcon />
-                </ListItemIcon>
-                <ListItemText primary="New Post" />
-            </ListItem>
+            {/* onclick link to createpost */}
+            <Fab className={classes.createIconFab} aria-label="create-post">
+                <Tooltip title="Create New Post">
+                    <IconButton onClick={handleClickOpen}>
+                        <Create/>
+                    </IconButton>
+                </Tooltip>
+            </Fab>
             <Dialog open={open}
                 fullWidth={fullWidth}
                 maxWidth={maxWidth}

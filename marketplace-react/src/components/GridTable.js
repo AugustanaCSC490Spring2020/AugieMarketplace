@@ -47,14 +47,17 @@ export default function GridTable(props) {
         <TableContainer className={classes.trans} component={Paper} >
             <Table>
                 <TableBody>
+                    {/* each row will have 3 ItemCards */}
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map(row => (
                         <TableRow key={row[0].id} style={{ borderStyle: 'none' }}>
+                            {/* each cell is an ItemCard */}
                             {row.map((cell, index) => (
                                 <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
+                                        id={cell.id}
                                         name={cell.name}
                                         user={cell.user}
                                         price={cell.price}
