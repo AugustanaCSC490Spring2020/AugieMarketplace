@@ -1,72 +1,81 @@
-import { Box, Container, CssBaseline } from '@material-ui/core';
-import { default as React } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { CopyrightFooter } from '../../components';
-import MenuBar from '../../components/Navigation/MenuBar';
-import SideBar from '../../components/Navigation/SideBar';
-import { useStyles } from "../../components/Navigation/styles";
-import routes from "../../routes";
-import { Dashboard } from '@material-ui/icons';
-import DashboardView from '../Dashboard/Dashboard';
+// import { Box, Container, CssBaseline } from "@material-ui/core";
+// import { default as React } from "react";
+// import {
+//   BrowserRouter as Router,
+//   Redirect,
+//   Route,
+//   Switch,
+// } from "react-router-dom";
+// import { CopyrightFooter } from "../../components";
+// import MenuBar from "../../components/Common/NavBar";
+// import SideBar from "../../components/Common/SideBar";
+// import { useStyles } from "../../components/Common/styles";
+// import routes from "../../routes";
+// import Login from "../Login/Login";
 
-//cite source
-const switchRoutes = (
-    <Switch>
-        {routes.map((prop, key) => {
-            return (
-                <Route
-                    path={prop.layout + prop.path}
-                    component={prop.component}
-                    key={key}
-                />
-            );
-        })}
-        <Redirect from="/" to="/dashboard" />
-    </Switch>
-);
+// import { useSelector, useDispatch } from "react-redux";
+// //import { selectAccessToken } from "../../redux/reducers";
 
-export default function Main(props) {
+// //cite source
+// // const switchRoutes = (accessToken, defaultRoute) => {
+// //   return (
 
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+// //   );
+// // };
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+// export default function Main(props) {
+//   const dispatch = useDispatch();
+//   //const accessToken = useSelector(selectAccessToken);
+//   //const defaultRoute = accessToken ? "/dashboard" : "/";
 
-    return (
-        <Router>
+//   const classes = useStyles();
+//   const [open, setOpen] = React.useState(false);
 
-            <div className={classes.root}>
-                <CssBaseline />
-                <SideBar
-                    open={open}
-                    handleDrawerClose={handleDrawerClose}
-                />
-            </div>
+//   const handleDrawerOpen = () => {
+//     setOpen(true);
+//   };
+//   const handleDrawerClose = () => {
+//     setOpen(false);
+//   };
 
-            <MenuBar
-                open={open}
-                query={props.query}
-                setQuery={props.setQuery}
-                handleDrawerOpen={handleDrawerOpen}
-            />
+//   return (
+//     <Router>
+//       <div className={classes.root}>
+//         <CssBaseline />
+//         <SideBar open={open} handleDrawerClose={handleDrawerClose} />
+//       </div>
 
-            <div className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                        {switchRoutes}
-                    <Box pt={4}>
-                        <CopyrightFooter />
-                    </Box>
-                </Container>
-            </div>
+//       <MenuBar
+//         open={open}
+//         query={props.query}
+//         setQuery={props.setQuery}
+//         handleDrawerOpen={handleDrawerOpen}
+//       />
 
-        </Router >
+//       <div className={classes.content}>
+//         <div className={classes.appBarSpacer} />
+//         <Container maxWidth="lg" className={classes.container}>
+//           <Switch>
+//             {accessToken ? (
+//               routes.map((route) => (
+//                 <Route key={route.path} path={route.path}>
+//                   <route.component />
+//                 </Route>
+//               ))
+//             ) : (
+//               <Route exact path="/">
+//                 <Login />
+//               </Route>
+//             )}
+//             <Redirect to={defaultRoute} />
+//           </Switch>
+//           <Box pt={4}>
+//             <CopyrightFooter />
+//           </Box>
+//         </Container>
+//       </div>
+//     </Router>
 
-        // <DashboardView/>
-    );
-}
+//     // <DashboardView/>
+//   );
+// }
