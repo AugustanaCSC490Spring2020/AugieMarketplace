@@ -46,6 +46,7 @@ function prepareData(data, numCol): [] {
 }
 
 export default function DashboardView(props) {
+  const classes = useStyles();
   const items = useSelector(selectItems);
   const itemsLoading = useSelector(selectItemsLoading);
   return (
