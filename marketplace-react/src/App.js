@@ -73,15 +73,7 @@ const App = () => {
     <div className={classes.root}>
       <CssBaseline />
 
-      <NavBar defaultRoute={defaultRoute}
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-      />
-
-      <SideBar
-        open={open}
-        handleDrawerClose={handleDrawerClose}
-      />
+      <NavBar defaultRoute={defaultRoute} />
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -104,12 +96,14 @@ const App = () => {
           </Switch>
 
           {/* <ItemDetails/> */}
-
+          
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
         </Container>
       </main>
+
+
     </div>
   )
 };

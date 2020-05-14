@@ -1,4 +1,4 @@
-import { ButtonBase, Container, Grid, makeStyles } from '@material-ui/core';
+import { ButtonBase, Container, Grid, makeStyles, Tooltip } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -118,11 +118,13 @@ export default function ItemDetails() {
                     </Grid>
 
                     <Grid item>
-                        <IconButton onClick={() => addToFavorites()} onMouseOver={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
-                            {getIcon()}
-                            {/* <FavoriteBorderIcon/> */}
-                            {/* <FavoriteIcon/> */}
-                        </IconButton>
+                        <Tooltip title="Add to Favorites">
+                            <IconButton onClick={() => addToFavorites()} onMouseOver={() => setIsMouseOver(true)} onMouseLeave={() => setIsMouseOver(false)}>
+                                {getIcon()}
+                                {/* <FavoriteBorderIcon/> */}
+                                {/* <FavoriteIcon/> */}
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>

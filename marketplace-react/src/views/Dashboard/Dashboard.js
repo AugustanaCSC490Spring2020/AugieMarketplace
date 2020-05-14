@@ -1,11 +1,35 @@
-import { Container, Divider, CircularProgress } from "@material-ui/core";
+import {
+  Container,
+  Divider,
+  CircularProgress,
+  Fab,
+  Tooltip,
+  IconButton,
+  makeStyles,
+} from "@material-ui/core";
+import { Create } from "@material-ui/icons";
 import { default as React } from "react";
+
 import { Filters, GridTable } from "../../components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { selectItems, selectItemsLoading } from "../../redux/reducers";
 
-
+const useStyles = makeStyles({
+  createIconFab: {
+    // left: '100%',
+    margin: 0,
+    top: "auto",
+    left: "92%",
+    bottom: 20,
+    position: "fixed",
+  },
+});
+/**
+ *
+ * @param {*} data
+ * @param {*} numCol
+ */
 function prepareData(data, numCol): [] {
   let rows = [],
     cells;
@@ -38,6 +62,13 @@ export default function DashboardView(props) {
       ) : (
         <GridTable rows={prepareData(items, 3)} />
       )}
+      <Fab className={classes.createIconFab} aria-label="create-post">
+        <Tooltip title="Create New Post">
+          <IconButton>
+            <Create />
+          </IconButton>
+        </Tooltip>
+      </Fab>
     </Container>
   );
-};
+}
