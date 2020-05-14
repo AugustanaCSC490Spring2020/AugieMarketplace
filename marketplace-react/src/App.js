@@ -8,6 +8,8 @@ import Submit from './views/CreatePost/Submit';
 import { createItem, MockUser, MockItems } from './data/mockData';
 import orderBy from 'lodash/orderBy'
 import { createSimpleDate } from './data/marketplace';
+import ItemForm from './views/CreatePostTest/PostItemForm';
+import Profile from './views/ProfilePage/Profile';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -68,7 +70,9 @@ export default class App extends React.Component {
       <React.Fragment>
         {/* components go here */}
         {/* <Login></Login> */}
-        <Dashboard
+        {/* <Profile></Profile> */}
+        <ItemForm></ItemForm>
+        {/* <Dashboard
           data={orderBy(
             this.state.query
               ? this.state.data.filter(x =>
@@ -80,7 +84,7 @@ export default class App extends React.Component {
           query={this.state.query}
           setQuery={this.setQuery}
           createPost={this.createPost}
-        />
+        /> */}
       </React.Fragment>
     );
   }
