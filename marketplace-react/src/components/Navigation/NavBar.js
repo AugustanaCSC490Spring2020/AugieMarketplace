@@ -1,30 +1,17 @@
 
-import React from "react";
-import {
-  AppBar,
-  FormControl,
-  IconButton,
-  Input,
-  InputAdornment,
-  Toolbar,
-  Typography,
-  Link,
-} from "@material-ui/core";
-
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { AppBar, IconButton, Link, Toolbar } from "@material-ui/core";
+import { Menu } from "@material-ui/icons";
 import PersonIcon from "@material-ui/icons/Person";
 import PowerOffIcon from "@material-ui/icons/PowerOff";
-
-
-import { Menu, Search } from "@material-ui/icons";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import clsx from "clsx";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions/auth";
+import { selectFirebaseToken } from "../../redux/reducers";
+import history from "../../utils/history";
 import { useStyles } from "./styles";
 
-import { useSelector, useDispatch } from "react-redux";
-import { selectFirebaseToken } from "../../redux/reducers";
-import { logout } from "../../redux/actions/auth";
-
-import history from "../../utils/history";
 
 // function SearchBar(props) {
 //   return (

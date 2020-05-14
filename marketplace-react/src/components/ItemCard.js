@@ -1,7 +1,6 @@
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { default as React } from 'react';
-import ItemDetails from '../views/ItemDetails/ItemDetails';
 
 const useStyles = makeStyles({
     root: {
@@ -23,45 +22,39 @@ const useStyles = makeStyles({
 
 export default function ItemCard(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const viewItem = () => {
+        //add route
+    }
 
     return (
-        <Card className={classes.root}>
-            <CardActionArea onClick={() => handleClickOpen}>
+        <Container>
+            <Card className={classes.root}>
+                <CardActionArea onClick={() => viewItem()}>
 
-                <CardMedia
-                    className={classes.media}
-                    image={"MockImages/" + props.imgs[0] + ".jpg"}
-                    title={props.name}
-                ></CardMedia>
+                    <CardMedia
+                        className={classes.media}
+                        image={"MockImages/" + props.imgs[0] + ".jpg"}
+                        title={props.name}
+                    />
 
-                <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {props.name}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {"$" + props.price}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-
-            <ItemDetails
-                open={open}
-                handleClose={handleClose}
-            />
-
-            {/* <IconButton className={classes.overlay}>
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {props.name}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {"$" + props.price}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+               
+                {/* <IconButton className={classes.overlay}>
                     <Favorite />
                 </IconButton> */}
 
-        </Card>
+            </Card>
+
+
+        </Container>
     );
 }

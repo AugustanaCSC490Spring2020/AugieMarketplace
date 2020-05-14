@@ -1,18 +1,11 @@
-import { default as React } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { Container, makeStyles, Grid, ButtonBase } from '@material-ui/core';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import { ButtonBase, Container, Grid, makeStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { default as React } from 'react';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -93,16 +86,16 @@ export default function ItemDetails() {
                     </Grid>
                 </Grid>
 
-                <Grid item direction="column" className={classes.mainImage}>
-                   
-                        <IconButton onClick={() => scrollImage(-1)} className={classes.mainImageButton}>
-                            <KeyboardArrowLeftIcon />
-                        </IconButton>
-                        <img className={classes.displayedImage} alt="currImage" src={"MockImages/" + images[currImage] + ".jpg"} />
-                        <IconButton onClick={() => scrollImage(1)} className={classes.mainImageButton}>
-                            <KeyboardArrowRightIcon />
-                        </IconButton>
-                    
+                <Grid item className={classes.mainImage}>
+
+                    <IconButton onClick={() => scrollImage(-1)} className={classes.mainImageButton}>
+                        <KeyboardArrowLeftIcon />
+                    </IconButton>
+                    <img className={classes.displayedImage} alt="currImage" src={"MockImages/" + images[currImage] + ".jpg"} />
+                    <IconButton onClick={() => scrollImage(1)} className={classes.mainImageButton}>
+                        <KeyboardArrowRightIcon />
+                    </IconButton>
+
                 </Grid>
 
                 <Grid item xs={12} sm container>

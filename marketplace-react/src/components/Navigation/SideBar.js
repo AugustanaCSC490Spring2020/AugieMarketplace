@@ -1,9 +1,6 @@
 import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import HelpIcon from '@material-ui/icons/Help';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import { default as React } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -32,7 +29,6 @@ export default function SideBar(props) {
                 <List>
                     <NavLink
                         to="/dashboard"
-                        className="dashboard"
                         activeClassName="active"
                         className={classes.link}>
                         <ListItem button>

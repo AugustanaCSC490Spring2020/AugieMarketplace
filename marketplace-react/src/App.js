@@ -1,16 +1,12 @@
+import { Box, CssBaseline, makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import NavBar from './components/Common/NavBar';
+import NavBar from './components/Navigation/NavBar';
+import CopyrightFooter from "./components/CopyrightFooter";
 import SideBar from './components/Navigation/SideBar';
 import { selectFirebaseToken } from './redux/reducers';
-import routes from "./utils/routes";
-import Login from "./views/Login/Login";
-import CopyrightFooter from "./components/CopyrightFooter"
-import { CssBaseline, Box} from '@material-ui/core'
 import { ItemDetails } from './views';
 
 const useStyles = makeStyles(theme => ({
@@ -98,9 +94,9 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch> */}
-          
-          <ItemDetails/>
 
+          <ItemDetails/>
+      
           <Box pt={4}>
             <CopyrightFooter />
           </Box>

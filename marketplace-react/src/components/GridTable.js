@@ -43,8 +43,6 @@ export default function GridTable(props) {
         setPage(0);
     };
 
-    console.log(rows);
-
     return (
         <TableContainer className={classes.trans} component={Paper} >
             <Table>
@@ -54,8 +52,8 @@ export default function GridTable(props) {
                         : rows
                     ).map(row => (
                         <TableRow key={row[0].id} style={{ borderStyle: 'none' }}>
-                            {row.map(cell => (
-                                <TableCell component='th' scope='row' style={{ borderStyle: 'none' }}>
+                            {row.map((cell, index) => (
+                                <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
                                         name={cell.name}
                                         user={cell.user}
