@@ -8,8 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import history from '../../utils/history'
-import {useLocation} from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
@@ -46,49 +44,16 @@ export default function Login(props) {
     
     const dispatch = useDispatch();
     const classes = useStyles();
-    let location = useLocation();
 
     if(idToken) {
       dispatch(login(idToken))
     }
 
-    function signIn() {
-        signInWithGoogle()
-    }
-
-    function signOut() {
-        auth.signOut()
-    }
-
-    function onSubmit() {
-      
-      if (auth.currentUser) {
-        signOut()
-      } else {
-        signIn();
-        history.push('/dashboard');
-      }
-
-      // fakeAuth.authenticate(() => {
-      //   history.replace(from);
-      // });
-      //check if it's an augustana email and if not give error
-      //store in redux that we are logged in   
-    }
-
     useEffect(() => {
-        /*
-         *
-         * We save the id token using state for the sake of updating our React app
-         * and for convenience. 
-         * 
-         * By accessing the token using getIdToken, we don't have to worry about
-         * storing it in localStorage or worrying about it expiring. 
-         * 
-         * 
-         */
+
         auth.onAuthStateChanged(async nextUser => {
             console.log("currentUser changed to:", nextUser)
+            
 
             if (auth.currentUser) {
                 const idToken = await auth.currentUser.getIdToken()
@@ -114,23 +79,17 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in with your Augustana Google Account"}</h2></p>
+            <p align="center"><h2>{"Please sign in with your Augustana Google Account"}</h2></p>
             <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={onSubmit}
+                onClick={() => signInWithGoogle()}
               >
-                {auth.currentUser ? "Sign Out" : "Sign In"}
+                {"Sign In"}
             </Button>
-
-            {/* <button onClick={signIn}>Sign in with Google</button>
-            <button onClick={signOut}>Sign me out</button>
-
-            <p>The ID token is:</p>
-            <code>{auth.currentUser ? idToken : "Please sign in"}</code> */}
           </div>
         </Grid>
       </Grid>

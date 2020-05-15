@@ -95,10 +95,6 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch>
-
-            {/* <Cart/> */}
-          {/* <ItemDetails/> */}
-          
           <Box pt={4}>
             <CopyrightFooter />
           </Box>

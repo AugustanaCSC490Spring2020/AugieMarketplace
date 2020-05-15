@@ -78,10 +78,14 @@ export const getItems = () => (dispatch) => {
 }
 
 export const getMockItems = (data) => (dispatch) => {
-    dispatch({
-        type: GET_ITEMS,
-        payload: data
-    });
+    dispatch({ type: LOADING_ITEMS });
+    setTimeout(() => {  
+        dispatch({
+            type: GET_ITEMS,
+            payload: data
+        });
+    }, 1500);
+    
 }
 
 export const getItemByID = (id) => (dispatch) => {
