@@ -5,14 +5,21 @@ import com.augiemarketplace.augiemarketplaceapi.model.ItemWrapper;
 import com.augiemarketplace.augiemarketplaceapi.model.UserModel;
 import com.augiemarketplace.augiemarketplaceapi.repository.AugieMarketRepo;
 import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.*;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.cloud.FirestoreClient;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -62,6 +69,7 @@ public class AugieMarketService {
                     document(uuid).set(oldList);
         } else {
             //adds item if user does not have a list
+            updatedModel.add(updateItem);
             ItemWrapper wrapper = ItemWrapper.builder().itemModelList(updatedModel).build();
             ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
                     document(uuid).set(wrapper);
@@ -100,9 +108,12 @@ public class AugieMarketService {
         return "Item was not found!";
     }
 
-    public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException {
+    public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException, IOException {
+        logger.info("test 1" );
         Firestore dbFireStore = FirestoreClient.getFirestore();
+        logger.info("test 2" );
         Iterable<DocumentReference> documentReference = dbFireStore.collection("springItems").listDocuments();
+        logger.info("test 2" );
         List<ItemModel> listOfAllItems = new ArrayList<>();
         List<DocumentReference> docList = new ArrayList<>();
         documentReference.forEach(docList::add);
