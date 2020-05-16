@@ -3,12 +3,8 @@ package com.augiemarketplace.augiemarketplaceapi.controller;
 import com.augiemarketplace.augiemarketplaceapi.model.ItemModel;
 import com.augiemarketplace.augiemarketplaceapi.model.ItemWrapper;
 import com.augiemarketplace.augiemarketplaceapi.service.AugieMarketService;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import com.google.firebase.database.FirebaseDatabase;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class AugieMarketController {
     private AugieMarketService augieMarketService;
@@ -59,11 +56,18 @@ public class AugieMarketController {
         return augieMarketService.deleteItem(itemId, userId);
     }
 
-   /* @RequestMapping(value = "/post/multiple/images", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/post/single/image", method = RequestMethod.POST, produces = {"application/json"})
+    public String postOneImage(@RequestParam(value = "itemId") String itemId,
+                               @RequestParam("image") MultipartFile  image)
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.postOneImage(itemId, image);
+    }
+
+    @RequestMapping(value = "/post/multiple/images", method = RequestMethod.POST, produces = {"application/json"})
     public String postImagesOfItem(@RequestParam(value = "itemId") String itemId, @RequestParam("images") MultipartFile[]  images)
             throws IOException, ExecutionException, InterruptedException {
-        return augieMarketService.postImagesOfItem(itemId, images);
-    }*/
+        return augieMarketService.postMultipleImages(itemId, images);
+    }
 
     //Returns unique user uuid
     @RequestMapping(value = "/verify/user", method = RequestMethod.GET, produces = {"application/json"})

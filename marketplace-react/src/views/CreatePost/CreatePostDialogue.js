@@ -1,15 +1,10 @@
-import { Dialog, DialogContent, DialogTitle, Divider } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Button, Dialog, DialogContent, Divider, Fab, IconButton, Tooltip, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CreateIcon from '@material-ui/icons/Create';
+import { Create } from '@material-ui/icons';
 import { default as React } from 'react';
 import Review from './Review';
 import UpdateInfo from './UpdateInfo';
@@ -50,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     dialog: {
         fullWidth: true,
         maxWidth: 'md'
+    },
+    createIconFab: {
+        margin: 0,
+        top: 'auto',
+        left: '92%',
+        bottom: 20,
+        position: 'fixed',
     }
 }));
 
@@ -67,12 +69,20 @@ function getStepContent(step) {
             throw new Error('Unknown step');
     }
 }
-export default function CreatePlanDialog() {
+
+export default function CreatePostDialogue(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [activeStep, setActiveStep] = React.useState(0);
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('md');
+
+    const [name, setName] = React.useState("");
+    const [user, setUser] = React.useState("");
+    const [price, setPrice] = React.useState(0);
+    const [description, setDescription] = React.useState("");
+    const [img, setImg] = React.useState("");
+    let tags = [];
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -90,20 +100,90 @@ export default function CreatePlanDialog() {
         setActiveStep(activeStep - 1);
     };
 
+    const handleSubmit = () => {
+        props.createPost(name, user, price, description, tags, img);
+        setOpen(false);
+    }
+
+    const [imageFile, setImageFile] = React.useState([]);
+
+    const handleChooseButton = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setImageFile(event.target.files[0]);
+        }
+    };
 
     return (
         <div>
-            <ListItem button onClick={handleClickOpen}>
-                <ListItemIcon>
-                    <CreateIcon />
-                </ListItemIcon>
-                <ListItemText primary="New Post" />
-            </ListItem>
+            {/* onclick link to createpost */}
+            <Fab className={classes.createIconFab} aria-label="create-post">
+                <Tooltip title="Create New Post">
+                    <IconButton onClick={handleClickOpen}>
+                        <Create/>
+                    </IconButton>
+                </Tooltip>
+            </Fab>
             <Dialog open={open}
                 fullWidth={fullWidth}
                 maxWidth={maxWidth}
                 onClose={handleClose}
                 className={classes.dialog}>
+                {/* <DialogTitle>
+                    <Typography>New Posting?</Typography>
+                </DialogTitle>
+
+                <DialogContent>
+                    <form className={classes.root} noValidate autoComplete="off">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    id="price"
+                                    name="price"
+                                    label="Price"
+                                    fullWidth
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField id="itemType" label="Type" value="Other" select>
+                                    <MenuItem value="Textbook">Textbook</MenuItem>
+                                    <MenuItem value="Dorm Accessories">Dorm Accessories</MenuItem>
+                                    <MenuItem value="Other">Other</MenuItem>
+                                </TextField>
+                            </Grid>
+                            <Grid>
+                                <Input
+                                    className={classes.choosePictureButton}
+                                    color="primary"
+                                    size="large"
+                                    type="file"
+                                    onClick={handleChooseButton}
+                                    variant="contained">Choose a photo</Input>
+                                
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    id="itemName"
+                                    name="itemName"
+                                    label="Name of Item"
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="description"
+                                    name="description"
+                                    label="Description"
+                                    fullWidth
+                                />
+                            </Grid>
+                        </Grid>
+                    </form> */}
+
                 <DialogContent>
                     <main
                         className={classes.layout}
@@ -150,6 +230,15 @@ export default function CreatePlanDialog() {
                         </Paper>
                     </main>
                 </DialogContent>
+                
+                {/* <DialogActions>
+                    <IconButton onClick={handleClose}>
+                        <CloseIcon />
+                    </IconButton>
+                    <IconButton onClick={handleSubmit}>
+                        <DoneIcon />
+                    </IconButton>
+                </DialogActions> */}
             </Dialog>
         </div>
     );

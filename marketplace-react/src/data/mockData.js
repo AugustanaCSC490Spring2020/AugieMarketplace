@@ -1,6 +1,5 @@
 import shortid from 'shortid';
 import { User, Item, createSimpleDate, SimpleDate } from './marketplace';
-import { default as React } from 'react';
 
 export const MockUser: User = { name: "Danielle Osazuwa", email: "danielleosazuwa16@augustana.edu", phoneNumber: 3095924711 }
 

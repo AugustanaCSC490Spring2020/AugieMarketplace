@@ -19,6 +19,7 @@ public class AugiemarketplaceapiApplication {
 		FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 					.setDatabaseUrl("https://augiemarketplace.firebaseio.com")
+					.setStorageBucket("augiemarketplace.appspot.com")
 					.build();
 			FirebaseApp.initializeApp(options);
 			SpringApplication.run(AugiemarketplaceapiApplication.class, args);

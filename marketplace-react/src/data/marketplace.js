@@ -27,4 +27,3 @@ export function createSimpleDate(d: Date): SimpleDate {
     let day = d.getDate(), month = d.getMonth() + 1, year = d.getFullYear();
     return { day: day, month: month, year: year, toString: (month > 9 ? '' : '0') + month + "/" +(day > 9 ? '' : '0') + day + "/" + year };
 }
-//TODO: functions

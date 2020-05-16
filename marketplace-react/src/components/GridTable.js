@@ -1,6 +1,5 @@
-import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,11 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import PropTypes from 'prop-types';
 import { default as React } from 'react';
 import ItemCard from './ItemCard';
 import TablePaginationActions from './TablePaginationActions';
@@ -49,20 +43,21 @@ export default function GridTable(props) {
         setPage(0);
     };
 
-    console.log(rows);
-
     return (
         <TableContainer className={classes.trans} component={Paper} >
             <Table>
                 <TableBody>
+                    {/* each row will have 3 ItemCards */}
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map(row => (
                         <TableRow key={row[0].id} style={{ borderStyle: 'none' }}>
-                            {row.map(cell => (
-                                <TableCell component='th' scope='row' style={{ borderStyle: 'none' }}>
+                            {/* each cell is an ItemCard */}
+                            {row.map((cell, index) => (
+                                <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
+                                        id={cell.id}
                                         name={cell.name}
                                         user={cell.user}
                                         price={cell.price}

@@ -1,5 +1,5 @@
 import { signInWithGoogle, auth } from "../../firebase/firebase";
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, Image } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,7 +7,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import history from '../../utils/history'
+import {useLocation} from 'react-router-dom';
+
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +43,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
     const [idToken, setIdToken] = useState(null)
+    
+    const dispatch = useDispatch();
     const classes = useStyles();
+    let location = useLocation();
+
+    if(idToken) {
+      dispatch(login(idToken))
+    }
 
     function signIn() {
         signInWithGoogle()
@@ -46,6 +58,22 @@ export default function Login(props) {
 
     function signOut() {
         auth.signOut()
+    }
+
+    function onSubmit() {
+      
+      if (auth.currentUser) {
+        signOut()
+      } else {
+        signIn();
+        history.push('/dashboard');
+      }
+
+      // fakeAuth.authenticate(() => {
+      //   history.replace(from);
+      // });
+      //check if it's an augustana email and if not give error
+      //store in redux that we are logged in   
     }
 
     useEffect(() => {
@@ -63,7 +91,9 @@ export default function Login(props) {
             console.log("currentUser changed to:", nextUser)
 
             if (auth.currentUser) {
-                setIdToken(await auth.currentUser.getIdToken())
+                const idToken = await auth.currentUser.getIdToken()
+                setIdToken(idToken)
+                
             } else {
                 setIdToken(null)
             }
@@ -84,18 +114,16 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-          </div>
-          <div className="App">
-            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in"}</h2></p>
-
+            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in with your Augustana Google Account"}</h2></p>
             <Button
+                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={auth.currentUser ? signOut : signIn}
+                onClick={onSubmit}
               >
-                {auth.currentUser ? "Sign Out" : "Sign In with Augustana Google Account"}
+                {auth.currentUser ? "Sign Out" : "Sign In"}
             </Button>
 
             {/* <button onClick={signIn}>Sign in with Google</button>
@@ -103,7 +131,7 @@ export default function Login(props) {
 
             <p>The ID token is:</p>
             <code>{auth.currentUser ? idToken : "Please sign in"}</code> */}
-        </div>
+          </div>
         </Grid>
       </Grid>
     );

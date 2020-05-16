@@ -1,11 +1,11 @@
-import Button from '@material-ui/core/Button';
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import ImageIcon from '@material-ui/icons/Image';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import React from 'react';
+import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 100
     },
   }));
-  
-export default function UploadImage() {
+
+export default function FormImage(props) {
     const classes = useStyles();
 
     return (

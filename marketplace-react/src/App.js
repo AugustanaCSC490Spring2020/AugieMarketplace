@@ -1,88 +1,114 @@
-import React from 'react';
-import './App.css';
+import { Box, CssBaseline, makeStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import CopyrightFooter from "./components/CopyrightFooter";
+import NavBar from './components/Navigation/NavBar';
+import SideBar from './components/Navigation/SideBar';
+import { selectFirebaseToken } from './redux/reducers';
+import routes from './utils/routes';
 import Login from './views/Login/Login';
-import Dashboard from './views/Dashboard/Dashboard';
-import CreatePost from './views/CreatePost/CreatePost';
-import CreatePostForm from './views/CreatePost/CreatePostForm';
-import Submit from './views/CreatePost/Submit';
-import { createItem, MockUser, MockItems } from './data/mockData';
-import orderBy from 'lodash/orderBy'
-import { createSimpleDate } from './data/marketplace';
+import Cart from './views/Miscelleneous/FavoritesCart';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: MockItems,
-      user: MockUser,
-      query: ""
+import { MockItems } from './data/mockData'
+import { getMockItems } from './redux/actions/items'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    //paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  }
+}));
+
+const App = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch()
+  const firebaseToken = useSelector(selectFirebaseToken);
+  const [appLoading, setAppLoading] = useState(false);
+  const defaultRoute = firebaseToken ? '/dashboard' : '/';
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const getItemsAsync = async () => {
+      setAppLoading(true);
+      await new Promise(r => setTimeout(r, 2000));
+      dispatch(getMockItems(MockItems))
+      setAppLoading(false);
+    };
+
+    if (firebaseToken) {
+      getItemsAsync();
     }
+  }, [firebaseToken]);
 
-    if (this.hasSaves) {
-      this.getSession()
-    } else {
-      this.storeSession(this.state)
-    }
-  }
-
-  hasSaves = () => {
-    if (localStorage.getItem('augieMarketPlace') === null) {
-      return false;
-    } return true;
-  }
-
-  storeSession = (data) => {
-    localStorage.setItem('augieMarketPlace', JSON.stringify(data));
-  }
-
-  getSession = () => {
-    let st = localStorage.getItem('augieMarketPlace');
-    st = JSON.parse(st);
-    this.state = {
-      data: st.data,
-      user: st.user,
-      query: ""
-    }
-  }
-
-  setQuery = (val) => {
-    this.setState({ query: val })
-  }
-
-  createPost = (
-    name: String,
-    user: String,
-    price: Number,
-    description: String,
-    tags: String[],
-    img: String
-  ) => {
-    let item = createItem(name, user, price, createSimpleDate(new Date()), description, tags, [img]),
-    updatedData = this.state.data;
-    updatedData.push(item);
-    this.setState({data: updatedData});
-  }
-
-  render() {
+  if (appLoading) {
     return (
-      <React.Fragment>
-        {/* components go here */}
-        {/* <Login></Login> */}
-        <Dashboard
-          data={orderBy(
-            this.state.query
-              ? this.state.data.filter(x =>
-                x["name"]
-                  .toLowerCase()
-                  .includes(this.state.query.toLowerCase())
-              ) : this.state.data
-          )}
-          query={this.state.query}
-          setQuery={this.setQuery}
-          createPost={this.createPost}
-        />
-      </React.Fragment>
+      <Container className="mh-100">
+        <div className="mh-100 justify-content-center align-items-center text-center">
+          <CircularProgress size="lg" color="primary" />
+          <p style={{ paddingLeft: '20px' }}>Initializing App...</p>
+        </div>
+      </Container>
     );
   }
-}
 
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+
+      <NavBar defaultRoute={defaultRoute} />
+
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Switch>
+            {
+              firebaseToken
+                ? routes.map((route) => (
+                  <Route key={route.path} path={route.path}>
+                    <route.component />
+                  </Route>
+                ))
+                : (
+                  <Route exact path="/">
+                    <Login />
+                  </Route>
+                )
+            }
+            <Redirect to={defaultRoute} />
+          </Switch>
+{/* 
+          <Cart/> */}
+
+          {/* <ItemDetails/> */}
+          
+          <Box pt={4}>
+            <CopyrightFooter />
+          </Box>
+        </Container>
+      </main>
+
+
+    </div>
+  )
+};
+
+export default App;
