@@ -8,8 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+<<<<<<< HEAD
 import history from '../../utils/history'
 import {useLocation} from 'react-router-dom';
+=======
+>>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
@@ -52,12 +55,8 @@ export default function Login(props) {
       dispatch(login(idToken))
     }
 
-    function signIn() {
-        signInWithGoogle()
-    }
-
-    function signOut() {
-        auth.signOut()
+    if(idToken) {
+      dispatch(login(idToken))
     }
 
     function onSubmit() {
@@ -77,18 +76,10 @@ export default function Login(props) {
     }
 
     useEffect(() => {
-        /*
-         *
-         * We save the id token using state for the sake of updating our React app
-         * and for convenience. 
-         * 
-         * By accessing the token using getIdToken, we don't have to worry about
-         * storing it in localStorage or worrying about it expiring. 
-         * 
-         * 
-         */
+
         auth.onAuthStateChanged(async nextUser => {
             console.log("currentUser changed to:", nextUser)
+            
 
             if (auth.currentUser) {
                 const idToken = await auth.currentUser.getIdToken()
@@ -114,13 +105,18 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+<<<<<<< HEAD
             <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in with your Augustana Google Account"}</h2></p>
+=======
+            <p align="center"><h2>{"Please sign in with your Augustana Google Account"}</h2></p>
+>>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
             <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+<<<<<<< HEAD
                 onClick={onSubmit}
               >
                 {auth.currentUser ? "Sign Out" : "Sign In"}
@@ -131,6 +127,12 @@ export default function Login(props) {
 
             <p>The ID token is:</p>
             <code>{auth.currentUser ? idToken : "Please sign in"}</code> */}
+=======
+                onClick={() => signInWithGoogle()}
+              >
+                {"Sign In"}
+            </Button>
+>>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
           </div>
         </Grid>
       </Grid>

@@ -42,12 +42,14 @@ export default (state = initialState, action) => {
         ...state,
         error: "",
         items: action.payload,
+        loading: false
       };
     case GET_ITEM_BY_ID:
       return {
         ...state,
         error: "",
         item_by_id: action.payload,
+        loading: false
       };
     default:
       return state;

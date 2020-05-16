@@ -10,11 +10,7 @@ import SideBar from './components/Navigation/SideBar';
 import { selectFirebaseToken } from './redux/reducers';
 import routes from './utils/routes';
 import Login from './views/Login/Login';
-<<<<<<< HEAD
-import Cart from './views/Miscelleneous/FavoritesCart';
-=======
 import Cart from './views/Miscelleneous/Cart';
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 import { MockItems } from './data/mockData'
 import { getMockItems } from './redux/actions/items'
@@ -99,14 +95,6 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch>
-<<<<<<< HEAD
-{/* 
-          <Cart/> */}
-
-          {/* <ItemDetails/> */}
-          
-=======
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
