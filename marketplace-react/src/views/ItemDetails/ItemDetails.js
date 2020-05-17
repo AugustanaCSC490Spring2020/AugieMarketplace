@@ -39,11 +39,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // "MockImages/" + props.imgs[0] + ".jpg"
-const images = ["avocet", "true-macaws", "grey-parrot", "cockatiel"]
+//const images = ["avocet", "true-macaws", "grey-parrot", "cockatiel"]
 export default function ItemDetails() {
     const classes = useStyles();
     const selectedItem = useSelector(selectItemById)
-    const { name, email, description, price, imgs } = selectedItem //NOTE: currently there's no imgs so used default imgs
+    const { name, email, description, price, imageUrl } = selectedItem 
     const [currImage, setCurrImage] = React.useState(0);
     const [isMouseOver, setIsMouseOver] = React.useState(false);
 
@@ -54,8 +54,8 @@ export default function ItemDetails() {
     const scrollImage = (direction) => {
         let newIndex = currImage + direction;
         if (newIndex < 0) {
-            setCurrImage(images.length - 1)
-        } else if (newIndex >= images.length) {
+            setCurrImage(imageUrl.length - 1)
+        } else if (newIndex >= imageUrl.length) {
             setCurrImage(0)
         } else {
             setCurrImage(newIndex)
@@ -80,10 +80,10 @@ export default function ItemDetails() {
                         justify="center"
                         alignItems="center"
                         spacing={1}>
-                        {images.map((img, index) => (
+                        {imageUrl.map((img, index) => (
                             <Grid item key={img} >
                                 <ButtonBase className={classes.image} onClick={() => displayImage(index)}>
-                                    <img className={classes.galleryImage} src={"MockImages/" + img + ".jpg"} />
+                                    <img className={classes.galleryImage} src={img} />
                                 </ButtonBase>
                             </Grid>
                         ))}
@@ -95,7 +95,7 @@ export default function ItemDetails() {
                     <IconButton onClick={() => scrollImage(-1)} className={classes.mainImageButton}>
                         <KeyboardArrowLeftIcon />
                     </IconButton>
-                    <img className={classes.displayedImage} alt="currImage" src={"MockImages/" + images[currImage] + ".jpg"} />
+                    <img className={classes.displayedImage} alt="currImage" src={imageUrl[currImage]} />
                     <IconButton onClick={() => scrollImage(1)} className={classes.mainImageButton}>
                         <KeyboardArrowRightIcon />
                     </IconButton>

@@ -20,7 +20,7 @@ import Axios from "axios";
 import Profile from './views/ProfilePage/Profile';
 import ItemEdit from './views/ProfilePage/ItemEdit';
 Axios.defaults.baseURL =
-  'https://cors-anywhere.herokuapp.com/https://20200514t111355-dot-augiemarketplace-276519.uc.r.appspot.com'; //cors-anywhere to fix CORS problem
+  'https://cors-anywhere.herokuapp.com/https://20200517t060107-dot-augiemarketplace-276519.uc.r.appspot.com'; //cors-anywhere to fix CORS problem
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +71,7 @@ const App = () => {
     return (
       <Container className="mh-100">
         <div className="mh-100 justify-content-center align-items-center text-center">
-          <CircularProgress size="lg" color="primary" />
+          <CircularProgress/>
           <p style={{ paddingLeft: '20px' }}>Initializing App...</p>
         </div>
       </Container>
@@ -87,7 +87,7 @@ const App = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* <Switch>
+          <Switch>
             {
               firebaseToken
                 ? routes.map((route) => (
@@ -102,9 +102,9 @@ const App = () => {
                 )
             }
             <Redirect to={defaultRoute} />
-          </Switch> */}
+          </Switch>
 
-         <Profile/>
+          {/* <Profile/> */}
           {/* <Cart/> */}
           {/* <ItemDetails/> */}
           
