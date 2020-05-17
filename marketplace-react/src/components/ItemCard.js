@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 export default function ItemCard(props) {
     const classes = useStyles();
     const { id, name, user, price, imgs } = props
-    console.log(id)
+    //console.log(id)
 
     const pushToViewItem = () => history.push(`./items/${id}`);
 

@@ -1,30 +1,15 @@
-
-<<<<<<< HEAD
-import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
-import { Menu, Favorite, ExitToApp } from "@material-ui/icons";
-import PersonIcon from "@material-ui/icons/Person";
-import PowerOffIcon from "@material-ui/icons/PowerOff";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import clsx from "clsx";
-import React from "react";
-=======
-
 import React from "react";
 import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
 import { Menu, Favorite, ExitToApp, Person as PersonIcon} from "@material-ui/icons";
 import clsx from "clsx";
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { selectFirebaseToken } from "../../redux/reducers";
 import history from "../../utils/history";
 import { useStyles } from "./styles";
 
-<<<<<<< HEAD
-=======
 import { signOut } from '../../firebase/firebase'
 
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 // function SearchBar(props) {
 //   return (
@@ -50,14 +35,6 @@ const NavBar = (props) => {
   const dispatch = useDispatch();
   const firebaseToken = useSelector(selectFirebaseToken);
 
-<<<<<<< HEAD
-  const pushToProfile = () => history.push("/profile");
-
-  const pushToShoppingCart = () => history.push("./shoppingcart");
-
-  const pushToDefaultRoute = () => history.push(defaultRoute);
-
-=======
   const pushToProfile = () => history.push("./profile");
 
   const pushToFavorites = () => history.push("./favorites");
@@ -74,7 +51,6 @@ const NavBar = (props) => {
       )
   }
 
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
   return (
     <div>
       <AppBar
@@ -114,21 +90,13 @@ const NavBar = (props) => {
               </Tooltip>
 
               <Tooltip title="Favorites">
-<<<<<<< HEAD
-                <IconButton color="inherit" onClick={pushToShoppingCart}>
-=======
                 <IconButton color="inherit" onClick={pushToFavorites}>
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
                   <Favorite />
                 </IconButton>
               </Tooltip>
 
               <Tooltip title="SignOut">
-<<<<<<< HEAD
-                <IconButton color="inherit" onClick={() => dispatch(logout)}>
-=======
                 <IconButton color="inherit" onClick={logOut}>
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
                   <ExitToApp />
                 </IconButton>
               </Tooltip>

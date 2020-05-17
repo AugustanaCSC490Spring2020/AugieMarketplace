@@ -8,11 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-<<<<<<< HEAD
-import history from '../../utils/history'
-import {useLocation} from 'react-router-dom';
-=======
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
@@ -49,30 +44,9 @@ export default function Login(props) {
     
     const dispatch = useDispatch();
     const classes = useStyles();
-    let location = useLocation();
 
     if(idToken) {
       dispatch(login(idToken))
-    }
-
-    if(idToken) {
-      dispatch(login(idToken))
-    }
-
-    function onSubmit() {
-      
-      if (auth.currentUser) {
-        signOut()
-      } else {
-        signIn();
-        history.push('/dashboard');
-      }
-
-      // fakeAuth.authenticate(() => {
-      //   history.replace(from);
-      // });
-      //check if it's an augustana email and if not give error
-      //store in redux that we are logged in   
     }
 
     useEffect(() => {
@@ -105,34 +79,17 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-<<<<<<< HEAD
-            <p align="center"><h2>{auth.currentUser ? auth.currentUser.displayName + " is signed in" : "Please sign in with your Augustana Google Account"}</h2></p>
-=======
             <p align="center"><h2>{"Please sign in with your Augustana Google Account"}</h2></p>
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
             <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-<<<<<<< HEAD
-                onClick={onSubmit}
-              >
-                {auth.currentUser ? "Sign Out" : "Sign In"}
-            </Button>
-
-            {/* <button onClick={signIn}>Sign in with Google</button>
-            <button onClick={signOut}>Sign me out</button>
-
-            <p>The ID token is:</p>
-            <code>{auth.currentUser ? idToken : "Please sign in"}</code> */}
-=======
                 onClick={() => signInWithGoogle()}
               >
                 {"Sign In"}
             </Button>
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
           </div>
         </Grid>
       </Grid>

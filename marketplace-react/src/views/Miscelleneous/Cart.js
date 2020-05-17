@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { IconButton } from '@material-ui/core';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { default as React } from 'react';
-
-export default function Cart(props) {
-    return (
-        <div>
-            <IconButton color="inherit">
-                <ShoppingCartIcon />
-            </IconButton>
-        </div>
-=======
 import { createStyles, IconButton, makeStyles, Paper, Table, TableBody, Typography, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from '@material-ui/core';
 import TableHead from "@material-ui/core/TableHead";
 import TableSortLabel from '@material-ui/core/TableSortLabel';
@@ -221,6 +208,5 @@ export default function Cart(props) {
                 </TableFooter>
             </Table>
         </TableContainer>
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
     )
 }
