@@ -29,7 +29,7 @@ export default function ItemCard(props) {
     const classes = useStyles();
     const dispatch = useDispatch()
     const { item } = props
-    const { itemId, name, price, imgs } = item
+    const { itemId, name, price, imageUrl } = item
 
     const pushToViewItem = () => {
         dispatch(getItemByIDFromStore(item))
@@ -43,7 +43,7 @@ export default function ItemCard(props) {
 
                     <CardMedia
                         className={classes.media}
-                        image={imgs ? (imgs.length > 0 ? imgs[0] : defaultImgLink) : defaultImgLink}
+                        image={imageUrl ? (imageUrl.length > 0 ? imageUrl[0] : defaultImgLink) : defaultImgLink}
                         title={name}
                     />
 
