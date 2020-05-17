@@ -10,18 +10,14 @@ import SideBar from './components/Navigation/SideBar';
 import { selectFirebaseToken } from './redux/reducers';
 import routes from './utils/routes';
 import Login from './views/Login/Login';
-<<<<<<< HEAD
 import Cart from './views/Miscelleneous/FavoritesCart';
-=======
-import Cart from './views/Miscelleneous/Cart';
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 import { MockItems } from './data/mockData'
 import { getMockItems, getItems } from './redux/actions/items'
 
 import Axios from "axios";
 Axios.defaults.baseURL =
-  'https://cors-anywhere.herokuapp.com/https://20200514t111355-dot-augiemarketplace-276519.uc.r.appspot.com';
+  'https://cors-anywhere.herokuapp.com/https://20200514t111355-dot-augiemarketplace-276519.uc.r.appspot.com'; //cors-anywhere to fix CORS problem
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -104,14 +100,7 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch>
-<<<<<<< HEAD
-{/* 
-          <Cart/> */}
-
-          {/* <ItemDetails/> */}
           
-=======
->>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
