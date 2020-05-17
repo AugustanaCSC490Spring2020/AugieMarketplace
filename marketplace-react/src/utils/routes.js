@@ -1,5 +1,5 @@
 import { Dashboard } from '@material-ui/icons';
-import { DashboardView, ItemDetails } from '../views';
+import { DashboardView, ItemDetails, Profile, Cart  } from '../views';
 
 const routes = [
   {
@@ -13,6 +13,17 @@ const routes = [
     name: "ViewItem",
     component: ItemDetails
   },
+  {
+    path: "/favorites",
+    name: "Favorites",
+    component: Cart
+  }
+  ,
+  // {
+  //   path: "/users/userId",
+  //   name: "Profile",
+  //   component: Profile
+  // }
   //could add other components here
 ];
 

@@ -10,16 +10,14 @@ import SideBar from './components/Navigation/SideBar';
 import { selectFirebaseToken } from './redux/reducers';
 import routes from './utils/routes';
 import Login from './views/Login/Login';
+<<<<<<< HEAD
+import Cart from './views/Miscelleneous/FavoritesCart';
+=======
 import Cart from './views/Miscelleneous/Cart';
-import ItemDetails from './views/ItemDetails/ItemDetails';
-import ProfilePage from './views/ProfilePage/Profile'
-import { MockItems } from './data/mockData'
-import { getMockItems, getItems } from './redux/actions/items'
+>>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
-import Axios from "axios";
-import Profile from './views/ProfilePage/Profile';
-Axios.defaults.baseURL =
-  'https://cors-anywhere.herokuapp.com/https://20200514t111355-dot-augiemarketplace-276519.uc.r.appspot.com'; //cors-anywhere to fix CORS problem
+import { MockItems } from './data/mockData'
+import { getMockItems } from './redux/actions/items'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,9 +53,8 @@ const App = () => {
   useEffect(() => {
     const getItemsAsync = async () => {
       setAppLoading(true);
-      // await new Promise(r => setTimeout(r, 2000));
-      // dispatch(getMockItems(MockItems))
-      dispatch(getItems())
+      await new Promise(r => setTimeout(r, 2000));
+      dispatch(getMockItems(MockItems))
       setAppLoading(false);
     };
 
@@ -86,7 +83,7 @@ const App = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* <Switch>
+          <Switch>
             {
               firebaseToken
                 ? routes.map((route) => (
@@ -101,10 +98,10 @@ const App = () => {
                 )
             }
             <Redirect to={defaultRoute} />
-          </Switch> */}
+          </Switch>
+{/* 
+          <Cart/> */}
 
-         <Profile/>
-          {/* <Cart/> */}
           {/* <ItemDetails/> */}
           
           <Box pt={4}>

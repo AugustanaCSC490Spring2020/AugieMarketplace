@@ -16,6 +16,9 @@ provider.addScope('email');
 provider.setCustomParameters({
     'hd': 'augustana.edu'
 });
+
+export  const signOut = auth.signOut()
+
 export async function signInWithGoogle() {
     auth.signInWithPopup(provider)
         .then(data => {

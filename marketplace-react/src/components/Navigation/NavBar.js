@@ -1,16 +1,14 @@
-
-import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
-import { Menu, Favorite, ExitToApp } from "@material-ui/icons";
-import PersonIcon from "@material-ui/icons/Person";
-import PowerOffIcon from "@material-ui/icons/PowerOff";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import clsx from "clsx";
 import React from "react";
+import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
+import { Menu, Favorite, ExitToApp, Person as PersonIcon} from "@material-ui/icons";
+import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { selectFirebaseToken } from "../../redux/reducers";
 import history from "../../utils/history";
 import { useStyles } from "./styles";
+
+import { signOut } from '../../firebase/firebase'
 
 
 // function SearchBar(props) {
@@ -37,11 +35,21 @@ const NavBar = (props) => {
   const dispatch = useDispatch();
   const firebaseToken = useSelector(selectFirebaseToken);
 
-  const pushToProfile = () => history.push("/profile");
+  const pushToProfile = () => history.push("./profile");
 
-  const pushToShoppingCart = () => history.push("./shoppingcart");
+  const pushToFavorites = () => history.push("./favorites");
 
   const pushToDefaultRoute = () => history.push(defaultRoute);
+
+  const logOut = () => {
+    signOut
+      .then(
+        dispatch(logout)
+      )
+      .catch(err =>
+        console.log(err) //TODO: show error --> try again
+      )
+  }
 
   return (
     <div>
@@ -82,13 +90,13 @@ const NavBar = (props) => {
               </Tooltip>
 
               <Tooltip title="Favorites">
-                <IconButton color="inherit" onClick={pushToShoppingCart}>
+                <IconButton color="inherit" onClick={pushToFavorites}>
                   <Favorite />
                 </IconButton>
               </Tooltip>
 
               <Tooltip title="SignOut">
-                <IconButton color="inherit" onClick={() => dispatch(logout)}>
+                <IconButton color="inherit" onClick={logOut}>
                   <ExitToApp />
                 </IconButton>
               </Tooltip>

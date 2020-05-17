@@ -2,6 +2,10 @@ import { Card, CardActionArea, CardContent, CardMedia, Container, Typography } f
 import { makeStyles } from '@material-ui/core/styles';
 import { default as React } from 'react';
 import history from '../utils/history'
+import { getItemByIDFromStore } from '../redux/actions/items'
+import { useDispatch } from "react-redux";
+
+const defaultImgLink = 'https://image.flaticon.com/icons/png/512/65/65686.png'
 
 const useStyles = makeStyles({
     root: {
@@ -23,9 +27,14 @@ const useStyles = makeStyles({
 
 export default function ItemCard(props) {
     const classes = useStyles();
-    const { id, name, user, price, imgs } = props
+    const dispatch = useDispatch()
+    const { item } = props
+    const { itemId, name, price, imgs } = item
 
-    const pushToViewItem = () => history.push(`./items/${id}`);
+    const pushToViewItem = () => {
+        dispatch(getItemByIDFromStore(item))
+        history.push(`./items/${itemId}`); 
+    }
 
     return (
         <Container>
@@ -34,7 +43,7 @@ export default function ItemCard(props) {
 
                     <CardMedia
                         className={classes.media}
-                        image={"MockImages/" + imgs[0] + ".jpg"}
+                        image={imgs ? (imgs.length > 0 ? imgs[0] : defaultImgLink) : defaultImgLink}
                         title={name}
                     />
 
