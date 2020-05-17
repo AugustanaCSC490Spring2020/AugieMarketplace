@@ -5,7 +5,7 @@ export const MockUser: User = { name: "Danielle Osazuwa", email: "danielleosazuw
 
 export function createItem(
     name: String,
-    user: String, //will be email
+    email: String, 
     price: Number,
     datePosted: SimpleDate,
     description: String,
@@ -13,7 +13,7 @@ export function createItem(
     imgs: String[]
 ) {
     const id = shortid.generate();
-    return { id, name, user, price, datePosted, description, tags, imgs }
+    return { id, name, email, price, datePosted, description, tags, imgs }
 }
 
 export const MockItems: Item[] = [

@@ -1,33 +1,34 @@
 import React from "react";
-import { AppBar, IconButton, Link, Toolbar, Tooltip } from "@material-ui/core";
-import { Menu, Favorite, ExitToApp, Person as PersonIcon} from "@material-ui/icons";
+import { AppBar, IconButton, FormControl, Input, InputAdornment, Link, Toolbar, Tooltip } from "@material-ui/core";
+import { Menu, Favorite, ExitToApp, Search, Person as PersonIcon } from "@material-ui/icons";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { selectFirebaseToken } from "../../redux/reducers";
 import history from "../../utils/history";
 import { useStyles } from "./styles";
-
 import { signOut } from '../../firebase/firebase'
+import CreatePostDialogue from "../../views/CreatePost/CreatePostDialogue";
+import { useLocation } from "react-router";
 
 
-// function SearchBar(props) {
-//   return (
-//     <FormControl>
-//       <Input
-//         endAdornment={
-//           <InputAdornment position="end">
-//             <IconButton>
-//               <Search style={{ color: "white" }} />
-//             </IconButton>
-//           </InputAdornment>
-//         }
-//         value={props.query}
-//         onChange={(e) => props.setQuery(e.target.value)}
-//       />
-//     </FormControl>
-//   );
-// }
+function SearchBar(props) {
+  return (
+    <FormControl>
+      <Input
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton>
+              <Search style={{ color: "white" }} />
+            </IconButton>
+          </InputAdornment>
+        }
+        value={props.query}
+        onChange={(e) => props.setQuery(e.target.value)}
+      />
+    </FormControl>
+  );
+}
 
 const NavBar = (props) => {
   const { defaultRoute } = props;
@@ -50,6 +51,8 @@ const NavBar = (props) => {
         console.log(err) //TODO: show error --> try again
       )
   }
+ 
+  let location = useLocation();
 
   return (
     <div>
@@ -82,7 +85,12 @@ const NavBar = (props) => {
           </Link>
           {firebaseToken && (
             <>
-
+              {location.pathname == "/dashboard" &&
+                <React.Fragment>
+                  <SearchBar />
+                  <CreatePostDialogue />
+                </React.Fragment>
+              }
               <Tooltip title="Profile">
                 <IconButton color="inherit" onClick={pushToProfile}>
                   <PersonIcon />

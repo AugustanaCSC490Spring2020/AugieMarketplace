@@ -14,7 +14,6 @@ export interface SimpleDate {
 export interface Item {
     id: String, //shortid.generate()
     name: String,
-    user: String, //user item belongs to
     email: String,
     price: Number,
     datePosted: SimpleDate,

@@ -4,6 +4,8 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { InputAdornment, IconButton, TextField } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { default as React } from 'react';
 
@@ -44,18 +46,18 @@ const sortTypes = [
 ];
 
 const productTypes = [
-    "Books",
+    "Textbook",
     "Furniture",
-    "Appliances",
-    "Apparel",
     "Housing",
+    "Apparel",
+    "Other"
 ];
 
 const majors = [
     "CSC",
     "ECON",
     "FYI",
-    "MATH", 
+    "MATH",
 ];
 
 function getStyles(name, personName, theme) {
@@ -73,18 +75,14 @@ export default function Filters(props) {
 
     const [sortType, setSortType] = React.useState("");
     const [productType, setProductType] = React.useState("");
-    const [major, setMajor] = React.useState([]);
 
     const handleSort = (event) => {
         setSortType(event.target.value);
+
     }
 
     const handleChangeProductType = (event) => {
         setProductType(event.target.value);
-    }
-
-    const handleChangeMajors = (event) => {
-        setMajor(event.target.value);
     }
 
     return (
@@ -112,6 +110,7 @@ export default function Filters(props) {
                     value={productType}
                     onChange={handleChangeProductType}
                     MenuProps={MenuProps}
+                    onMouseLeave={(e) => {e.currentTarget.focus=false}}
                 >
                     {productTypes.map((p) => (
                         <MenuItem key={p} value={p} style={getStyles(p, productTypes, theme)}>
@@ -121,30 +120,7 @@ export default function Filters(props) {
                 </Select>
             </FormControl>
 
-            {/* Class CSC, MATH, CHEM, FYI*/}
-            <FormControl className={classes.formControl}>
-                <InputLabel>Major</InputLabel>
-                <Select
-                    multiple
-                    value={major}
-                    onChange={handleChangeMajors}
-                    input={<Input />}
-                    renderValue={(selected) => (
-                        <div className={classes.chips}>
-                            {selected.map((value) => (
-                                <Chip key={value} label={value} className={classes.chip} />
-                            ))}
-                        </div>
-                    )}
-                    MenuProps={MenuProps}
-                >
-                    {majors.map((m) => (
-                        <MenuItem key={m} value={m} style={getStyles(m, majors, theme)}>
-                            {m}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+            
         </div>
     );
 }

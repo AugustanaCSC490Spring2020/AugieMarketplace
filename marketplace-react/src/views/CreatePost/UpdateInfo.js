@@ -24,10 +24,13 @@ export default function UpdateInfo() {
             }}
           />
         </Grid>
+
         <Grid item xs={12} sm={6}>
-            <TextField id="itemType" label="Type" value="Other" select>
+            <TextField id="itemType" label="Type" defaultValue="Other" select>
                 <MenuItem value="Textbook">Textbook</MenuItem>
-                <MenuItem value="Dorm Accessories">Dorm Accessories</MenuItem>
+                <MenuItem value="Furniture">Furniture</MenuItem>
+                <MenuItem value="Housing">Housing</MenuItem>
+                <MenuItem value="Apparel">Apparel</MenuItem>
                 <MenuItem value="Other">Other</MenuItem>
             </TextField>
         </Grid>
