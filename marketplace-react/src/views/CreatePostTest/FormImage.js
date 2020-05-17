@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import ImageIcon from '@material-ui/icons/Image';
+import ImageUploader from 'react-images-upload';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,28 +34,46 @@ export default function FormImage(props) {
         </Typography>
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <ImageIcon className={classes.imageIcon}></ImageIcon>
+            {props.image == null
+                ? <ImageIcon className={classes.imageIcon}></ImageIcon>
+                : <img alt="preview" src={props.imageURL} style={{maxHeight: "400px",maxWidth: "400px"}}/>
+             }
+                
             </Grid>
             <Grid item xs={12}>
             <div className={classes.root}>
+                {/* <ImageUploader
+                    withIcon={true}
+                    name='image'
+                    buttonText='Choose image'
+                    onChange={props.onDrop}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
+                    singleImage={true}
+                    withPreview={true}
+                /> */}
                 <input
                     accept="image/*"
                     className={classes.input}
                     id="contained-button-file"
-                    multiple
                     type="file"
+                    onChange={props.uploadPicture}
                 />
                 <label htmlFor="contained-button-file">
                     <Button variant="contained" color="primary" component="span">
                         Upload
                     </Button>
                 </label>
-                <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                <Grid item xs={12}>
+                    
+                </Grid>
+                
+                {/* <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
                 <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
                     <PhotoCamera />
                     </IconButton>
-                </label>
+                </label> */}
             </div>
             </Grid>
         </Grid>
