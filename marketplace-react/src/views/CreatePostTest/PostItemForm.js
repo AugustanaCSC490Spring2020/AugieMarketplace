@@ -9,6 +9,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const styles = theme => ({
     appBar: {
@@ -52,7 +53,8 @@ class PostItemForm extends Component {
     super(props)
     this.state = {
       currentStep: 1,
-      imageUrl: '',
+      image: null,
+      imageURL: null,
       itemPrice: '',
       itemType: '',
       itenName: '',
@@ -67,9 +69,16 @@ class PostItemForm extends Component {
     })    
   }
 
+  uploadPicture = event => {
+    this.setState({
+        image: event.target.files[0],
+        imageURL: URL.createObjectURL(event.target.files[0]),
+    });
+}
+
   handleSubmit = event => {
     event.preventDefault()
-    const { imageUrl, itemPrice, itemType, itemName, itemDes } = this.state
+    const { image, imageURL, itemPrice, itemType, itemName, itemDes } = this.state
   }
 
   _next = () => {
@@ -78,6 +87,26 @@ class PostItemForm extends Component {
     this.setState({
       currentStep: currentStep
     })
+    if(currentStep === 4){
+      axios({
+        method: 'delete',     //HTTP method
+     url:`https://20200514t221321-dot-augiemarketplace-276519.uc.r.appspot.com/post/item?userId=crossorigin`,
+        // headers: {'Authorization': 'Bearer'}, 
+        data: { // This is the body part fill out with the props
+          name: this.state.itemName,
+          description: this.state.itemDes,
+          price: this.state.itemPrice,
+          email: "sonnguyen16@augustana.edu",
+          isAvailable: true,
+        }
+      }).then(response => {
+   // if item is posted do smthg 
+        if (response.status === 200) {
+   }
+      }).catch(error => {
+        console.log(error);
+      });
+    }
   }
     
   _prev = () => {
@@ -95,7 +124,9 @@ class PostItemForm extends Component {
             <FormImage
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
-              imageUrl={this.state.imageUrl}
+              uploadPicture={this.uploadPicture}
+              image={this.state.image}
+              imageURL={this.state.imageURL}
             />
           );
         case 2:
@@ -103,6 +134,8 @@ class PostItemForm extends Component {
             <FormDetail
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
+              image={this.state.image}
+              imageURL={this.state.imageURL}
               itemName={this.state.itemName}
               itemPrice={this.state.itemPrice}
               itemType={this.state.itemType}
@@ -114,6 +147,8 @@ class PostItemForm extends Component {
             <FormConfirm
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
+              image={this.state.image}
+              imageURL={this.state.imageURL}
               itemName={this.state.itemName}
               itemPrice={this.state.itemPrice}
               itemType={this.state.itemType}
