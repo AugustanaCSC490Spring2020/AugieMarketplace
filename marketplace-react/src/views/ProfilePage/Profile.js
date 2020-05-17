@@ -1,17 +1,13 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Box, IconButton, CssBaseline, Grid, TableHead, TableSortLabel, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { DeleteOutline, Edit, MailOutline } from '@material-ui/icons';
+import React from 'react';
+import TablePaginationActions from '../../components/TablePaginationActions';
+import { MockItems } from '../../data/mockData';
 import UserDetail from './UserDetail';
-import Box from '@material-ui/core/Box';
 
+
+const userItems = [MockItems[0], MockItems[1], MockItems[2], MockItems[3], MockItems[4]];
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -39,71 +35,228 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  root: {
+    flexShrink: 0,
+    marginLeft: theme.spacing(2.5),
+    width: '100%',
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map(el => el[0]);
+}
 
 export default function Profile() {
   const classes = useStyles();
 
+  const [page, setPage] = React.useState(0);
+
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, userItems.length - page * rowsPerPage);
+
+  const [order, setOrder] = React.useState('desc');
+
+  const [orderBy, setOrderBy] = React.useState('count');
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 5));
+    setPage(0);
+  };
+
+  const createSortHandler = property => event => {
+    handleRequestSort(event, property);
+  };
+
+  const editItem = (row) => {
+
+  }
+
+  const deleteItem = (row) => {
+
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <main>
-        <Box
-          display="flex"
-          justifyContent="center"
-          p={1}
-          m={1}
+
+      <Grid container>
+        <Grid item>
+          <Box
+            display="flex"
+            justifyContent="center"
+            p={1}
+            m={1}
           >
             <UserDetail
               name="Son Nguyen"
               dayJoined="May 11, 2020"
               description="I am a senior"
-              image="https://www.w3schools.com/howto/img_avatar.png" 
+              image="https://www.w3schools.com/howto/img_avatar.png"
               imageTitle="Avatar"
             />
-        </Box>
+          </Box>
+        </Grid>
 
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
-              Current Posting
-            </Typography>
-          </Container>
-        </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+        <Grid item>
+          <TableContainer component={Paper} className={classes.container} styles={{ padding: 1 }}>
+            <Table stickyHeader aria-label="sticky table" className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Typography variant="h6">Current Postings</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell
+                    sortDirection={orderBy === "name" ? order : false}
+                  >
+                    <TableSortLabel
+                      active={orderBy === "name"}
+                      direction={orderBy === "name" ? order : 'asc'}
+                      onClick={createSortHandler("name")}
+                    >
+                      Name
+                                {orderBy === "name" ? (
+                        <span className={classes.visuallyHidden}>
+                          {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                        </span>
+                      ) : null}
+                    </TableSortLabel>
+                  </TableCell>
+
+                  <TableCell
+                    sortDirection={orderBy === "price" ? order : false}
+                  >
+                    <TableSortLabel
+                      active={orderBy === "price"}
+                      direction={orderBy === "price" ? order : 'asc'}
+                      onClick={createSortHandler("price")}
+                    > Price
+                                {orderBy === "price" ? (
+                        <span className={classes.visuallyHidden}>
+                          {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                        </span>
+                      ) : null}
+                    </TableSortLabel>
+                  </TableCell>
+
+                  <TableCell>Edit Posting</TableCell>
+                  <TableCell>Delete</TableCell>
+
+
+                </TableRow>
+              </TableHead>
+              <TableBody style={{ borderStyle: 'none' }}>
+                {stableSort(userItems, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, key) => {
+                    return (
+                      <TableRow key={key}>
+                        <TableCell>
+                          <img
+                            width='auto' height='40' src={"MockImages/" + row.imgs[0] + ".jpg"} alt={row.name} />
+                        </TableCell>
+                        <TableCell component="th" scope="row" padding="none">
+                          {row.name}
+                        </TableCell>
+                        <TableCell component="th" scope="row" padding="none">
+                          {"$" + row.price}
+                        </TableCell>
+                        <TableCell>
+                          <IconButton onClick={() => editItem(row)}>
+                            <Edit />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton onClick={() => deleteItem(row)}>
+                            <DeleteOutline />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow >
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                    colSpan={4}
+                    count={userItems.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: { 'aria-label': 'rows per page' },
+                      native: true,
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Item Name
-                    </Typography>
-                    <Typography>
-                      This is an item card. You can use this section to describe the item.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

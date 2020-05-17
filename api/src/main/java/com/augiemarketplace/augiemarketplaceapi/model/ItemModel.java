@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -17,6 +19,8 @@ public class ItemModel {
     private String description;
     private String price;
     private String email;
+    private String type;
+    private List<String> imageUrl;
     private String createdAt = Timestamp.now().toString();
     private boolean isAvailable;
 }

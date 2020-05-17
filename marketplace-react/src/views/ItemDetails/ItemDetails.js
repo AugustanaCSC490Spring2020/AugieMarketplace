@@ -6,6 +6,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { default as React } from 'react';
+import { useSelector } from "react-redux";
+import { selectItemById } from "../../redux/reducers";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -40,6 +42,8 @@ const useStyles = makeStyles(theme => ({
 const images = ["avocet", "true-macaws", "grey-parrot", "cockatiel"]
 export default function ItemDetails() {
     const classes = useStyles();
+    const selectedItem = useSelector(selectItemById)
+    const { name, email, description, price, imgs } = selectedItem //NOTE: currently there's no imgs so used default imgs
     const [currImage, setCurrImage] = React.useState(0);
     const [isMouseOver, setIsMouseOver] = React.useState(false);
 
@@ -102,17 +106,14 @@ export default function ItemDetails() {
                     <Grid item xs container direction="column" spacing={2}>
                         <Grid item xs>
                             <Typography gutterBottom variant="subtitle1">
-                                I, Robot by Isaac Asimov
+                                {name}
                             </Typography>
                             <Typography variant="body2" gutterBottom>
-                                danielleosazuwa16@augustana.edu
+                                {email}
                             </Typography>
-                            <Typography variant="subtitle1">$19.00</Typography>
+                            <Typography variant="subtitle1">${price}</Typography>
                             <Typography variant="body2" color="textSecondary">
-                                Description Description Description Description Description
-                                Description Description Description Description Description
-                                Description Description Description Description Description
-                                Description Description Description Description Description
+                                {description}
                             </Typography>
                         </Grid>
                     </Grid>

@@ -4,7 +4,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import clsx from 'clsx';
 import { default as React } from 'react';
 import { NavLink } from 'react-router-dom';
-import { CreatePostDialogue, SignOut } from '../../views';
+import { CreatePostDialogue } from '../../views';
 import { useStyles } from './styles';
 
 export default function SideBar(props) {
@@ -49,7 +49,6 @@ export default function SideBar(props) {
                         />
                     </NavLink>
 
-                    <SignOut />
                 </List>
             </Drawer>
         </div>

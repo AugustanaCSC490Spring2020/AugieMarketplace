@@ -34,6 +34,7 @@ export default (state = initialState, action) => {
         ...state,
         error: "",
         user_by_email: action.payload,
+        loading: false,
       };
     default:
       return state;

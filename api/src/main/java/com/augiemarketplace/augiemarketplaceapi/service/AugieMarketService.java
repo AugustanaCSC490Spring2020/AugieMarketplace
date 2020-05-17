@@ -7,12 +7,15 @@ import com.augiemarketplace.augiemarketplaceapi.repository.AugieMarketRepo;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.*;
+import com.google.cloud.storage.Bucket;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.cloud.StorageClient;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -49,6 +52,8 @@ public class AugieMarketService {
                 .name(itemModel.getName())
                 .email(itemModel.getEmail())
                 .description(itemModel.getDescription())
+                .imageUrl(new ArrayList<>())
+                .type(itemModel.getType())
                 .createdAt(Timestamp.now().toString())
                 .build();
         Firestore dbFireStore = FirestoreClient.getFirestore();
@@ -62,6 +67,7 @@ public class AugieMarketService {
                     document(uuid).set(oldList);
         } else {
             //adds item if user does not have a list
+            updatedModel.add(updateItem);
             ItemWrapper wrapper = ItemWrapper.builder().itemModelList(updatedModel).build();
             ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
                     document(uuid).set(wrapper);
@@ -100,9 +106,12 @@ public class AugieMarketService {
         return "Item was not found!";
     }
 
-    public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException {
+    public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException, IOException {
+        logger.info("test 1" );
         Firestore dbFireStore = FirestoreClient.getFirestore();
+        logger.info("test 2" );
         Iterable<DocumentReference> documentReference = dbFireStore.collection("springItems").listDocuments();
+        logger.info("test 2" );
         List<ItemModel> listOfAllItems = new ArrayList<>();
         List<DocumentReference> docList = new ArrayList<>();
         documentReference.forEach(docList::add);
@@ -119,10 +128,47 @@ public class AugieMarketService {
         return listOfAllItems;
     }
 
-    public String postImagesOfItem(String itemId, MultipartFile[] images) {
-        Firestore dbFireStore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.document("gs://augiemarketplace.appspot.com").set(images);
-        return  "uploaded";
+    public String postOneImage(String itemId, MultipartFile image, String userId) throws IOException, ExecutionException, InterruptedException {
+        Bucket bucket = StorageClient.getInstance().bucket();
+        String blobString = itemId + "/" + image.getOriginalFilename();
+        bucket.create(blobString, image.getInputStream(), image.getContentType());
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/augiemarketplace.appspot.com/o/"+itemId+"%2F"+image.getOriginalFilename()+"?alt=media" +
+                "&token=8c677b50-4ebd-4e4c-bf49-7bcb7dfb7532";
+        postImageUrlToDb(imageUrl, userId, itemId);
+        return  "uploaded one image";
+    }
+
+    public void postImageUrlToDb(String imageUrl, String userId, String itemId) throws ExecutionException, InterruptedException {
+        ItemWrapper itemsOfUser = getListOfItemsOfUser(userId);
+        List<ItemModel> listOfItems = itemsOfUser.getItemModelList();
+        int index = 0;
+        ItemModel itemToReplace = null;
+        int count = 0;
+        for (ItemModel item : listOfItems) {
+            if (item.getItemId().equalsIgnoreCase(itemId)){
+                itemToReplace = item;
+                index = count;
+            }
+            count++;
+        }
+        if (itemToReplace != null){
+            List<String> listOfUrls = new ArrayList<>();
+            if (listOfUrls != null) listOfUrls = itemToReplace.getImageUrl();
+            listOfUrls.add(imageUrl);
+            itemToReplace.setImageUrl(listOfUrls);
+            listOfItems.set(index, itemToReplace);
+            itemsOfUser.setItemModelList(listOfItems);
+            Firestore dbFireStore = FirestoreClient.getFirestore();
+            ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
+                    document(userId).set(itemsOfUser);
+        }
+    }
+
+    public String postMultipleImages(String itemId, MultipartFile[] images, String userId) throws IOException, ExecutionException, InterruptedException {
+        for (MultipartFile currImage : images) {
+            postOneImage(itemId, currImage, userId);
+        }
+        return  "uploaded multiple images";
     }
 
     public String deleteItem(String itemId, String userId) throws ExecutionException, InterruptedException {
