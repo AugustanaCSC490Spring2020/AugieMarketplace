@@ -58,15 +58,17 @@ public class AugieMarketController {
 
     @RequestMapping(value = "/post/single/image", method = RequestMethod.POST, produces = {"application/json"})
     public String postOneImage(@RequestParam(value = "itemId") String itemId,
-                               @RequestParam("image") MultipartFile  image)
+                               @RequestParam("image") MultipartFile  image,
+                    @RequestParam(value = "userId") String userId)
             throws IOException, ExecutionException, InterruptedException {
-        return augieMarketService.postOneImage(itemId, image);
+        return augieMarketService.postOneImage(itemId, image, userId);
     }
 
     @RequestMapping(value = "/post/multiple/images", method = RequestMethod.POST, produces = {"application/json"})
-    public String postImagesOfItem(@RequestParam(value = "itemId") String itemId, @RequestParam("images") MultipartFile[]  images)
+    public String postImagesOfItem(@RequestParam(value = "itemId") String itemId, @RequestParam("images") MultipartFile[]  images,
+                                   @RequestParam(value = "userId") String userId)
             throws IOException, ExecutionException, InterruptedException {
-        return augieMarketService.postMultipleImages(itemId, images);
+        return augieMarketService.postMultipleImages(itemId, images, userId);
     }
 
     //Returns unique user uuid
