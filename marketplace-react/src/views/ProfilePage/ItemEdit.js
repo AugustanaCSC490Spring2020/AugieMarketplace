@@ -1,13 +1,9 @@
-import { ButtonBase, Dialog, DialogTitle, DialogActions, List, ListItem, Container, Grid, makeStyles, Tooltip, Button, DialogContent } from '@material-ui/core';
+import { Button, ButtonBase, Dialog, DialogActions, DialogContent, DialogTitle, Grid, makeStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { default as React } from 'react';
-import { useSelector } from "react-redux";
-import { selectItemById } from "../../redux/reducers";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+//a mess
 export default function ItemEdit(props) {
 
     const classes = useStyles();
@@ -106,6 +103,7 @@ export default function ItemEdit(props) {
                                 <Typography gutterBottom variant="subtitle1">
                                     {props.item.name}
                                 </Typography>
+
                                 <Typography variant="body2" gutterBottom>
                                     {props.item.email}
                                 </Typography>
@@ -114,6 +112,10 @@ export default function ItemEdit(props) {
                                     {props.item.description}
                                 </Typography>
                             </Grid>
+                        </Grid>
+
+                        <Grid item>
+                            <Typography>Tags</Typography>
                         </Grid>
                     </Grid>
                 </Grid>

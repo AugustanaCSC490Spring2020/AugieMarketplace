@@ -120,23 +120,6 @@ export default function Profile() {
     handleRequestSort(event, property);
   };
 
-  const [open, setOpen] = React.useState(false);
-
-  //won't handle editing images in this sprint
-
-  const openDialogue = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  }
-
-  const handleSubmit = (name, price, datePosted, description, tag) => {
-    //backend call
-    setOpen(false)
-  }
-
   const deleteItem = (row) => {
 
   }
@@ -207,7 +190,6 @@ export default function Profile() {
                     </TableSortLabel>
                   </TableCell>
 
-                  <TableCell>Edit Posting</TableCell>
                   <TableCell>Delete</TableCell>
 
 
@@ -228,17 +210,6 @@ export default function Profile() {
                         </TableCell>
                         <TableCell component="th" scope="row" padding="none">
                           {"$" + row.price}
-                        </TableCell>
-                        <TableCell>
-                          <IconButton onClick={() => openDialogue()}>
-                            <Edit />
-                          </IconButton>
-                          <ItemEdit
-                            open={open}
-                            item={row}
-                            onClose={handleClose}
-                            onSubmit={handleSubmit}
-                          />
                         </TableCell>
                         <TableCell>
                           <IconButton onClick={() => deleteItem(row)}>
