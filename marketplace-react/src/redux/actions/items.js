@@ -63,14 +63,16 @@ export const deleteItem = (id) => (dispatch) => {
 export const getItems = () => (dispatch) => {
     dispatch({ type: LOADING_ITEMS });
     Axios
-        .get('/items')
+        .get('/list/items/all')
         .then((res) => {
+            console.log(res.data)
             dispatch({
                 type: GET_ITEMS,
                 payload: res.data
             });
         })
         .catch((err) => {
+            console.log(err)
             dispatch({
                 type: ERROR_ITEMS
             });

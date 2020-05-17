@@ -2,7 +2,6 @@ import { CircularProgress, Container, Divider } from '@material-ui/core';
 import { default as React } from 'react';
 import { useSelector } from "react-redux";
 import { Filters, GridTable } from '../../components';
-import { MockItems } from '../../data/mockData';
 import { selectItems, selectItemsLoading } from "../../redux/reducers";
 import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
 
@@ -28,7 +27,6 @@ function prepareData(data, numCol): [] {
 }
 
 export default function DashboardView(props) {
-    const data = MockItems;
     const items = useSelector(selectItems);
     const itemsLoading = useSelector(selectItemsLoading);
     return (

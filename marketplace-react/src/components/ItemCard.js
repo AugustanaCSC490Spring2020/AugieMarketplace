@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { default as React } from 'react';
 import history from '../utils/history'
 
+const defaultImgLink = 'https://image.flaticon.com/icons/png/512/65/65686.png'
+
 const useStyles = makeStyles({
     root: {
         position: "relative",
@@ -24,6 +26,7 @@ const useStyles = makeStyles({
 export default function ItemCard(props) {
     const classes = useStyles();
     const { id, name, user, price, imgs } = props
+    console.log(id)
 
     const pushToViewItem = () => history.push(`./items/${id}`);
 
@@ -34,7 +37,7 @@ export default function ItemCard(props) {
 
                     <CardMedia
                         className={classes.media}
-                        image={"MockImages/" + imgs[0] + ".jpg"}
+                        image={imgs ? (imgs.length > 0 ? imgs[0] : defaultImgLink) : defaultImgLink}
                         title={name}
                     />
 
