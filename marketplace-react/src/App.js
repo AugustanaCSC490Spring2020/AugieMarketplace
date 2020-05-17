@@ -11,7 +11,8 @@ import { selectFirebaseToken } from './redux/reducers';
 import routes from './utils/routes';
 import Login from './views/Login/Login';
 import Cart from './views/Miscelleneous/Cart';
-
+import ItemDetails from './views/ItemDetails/ItemDetails';
+import ProfilePage from './views/ProfilePage/Profile'
 import { MockItems } from './data/mockData'
 import { getMockItems } from './redux/actions/items'
 
@@ -79,7 +80,7 @@ const App = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Switch>
+          {/* <Switch>
             {
               firebaseToken
                 ? routes.map((route) => (
@@ -94,10 +95,11 @@ const App = () => {
                 )
             }
             <Redirect to={defaultRoute} />
-          </Switch>
+          </Switch> */}
 
-            {/* <Cart/> */}
-          {/* <ItemDetails/> */}
+          {/* <ProfilePage/> */}
+          {/* <Cart/> */}
+          <ItemDetails/>
           
           <Box pt={4}>
             <CopyrightFooter />
