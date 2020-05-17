@@ -17,11 +17,7 @@ import Cart from './views/Miscelleneous/Cart';
 >>>>>>> 75db6c9aa84d5d4711fb555733e5750b2cd099e5
 
 import { MockItems } from './data/mockData'
-import { getMockItems, getItems } from './redux/actions/items'
-
-import Axios from "axios";
-Axios.defaults.baseURL =
-  'https://cors-anywhere.herokuapp.com/https://20200514t111355-dot-augiemarketplace-276519.uc.r.appspot.com';
+import { getMockItems } from './redux/actions/items'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,9 +53,8 @@ const App = () => {
   useEffect(() => {
     const getItemsAsync = async () => {
       setAppLoading(true);
-      // await new Promise(r => setTimeout(r, 2000));
-      // dispatch(getMockItems(MockItems))
-      dispatch(getItems())
+      await new Promise(r => setTimeout(r, 2000));
+      dispatch(getMockItems(MockItems))
       setAppLoading(false);
     };
 

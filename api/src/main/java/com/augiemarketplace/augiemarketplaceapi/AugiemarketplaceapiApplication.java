@@ -5,28 +5,23 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-@EnableSwagger2
 @SpringBootApplication
+@EnableSwagger2
 public class AugiemarketplaceapiApplication {
-
-	public static void main(String[] args) {
-		try {
-			FileInputStream serviceAccount =
-					new FileInputStream("/Users/samihsghier/Desktop/SI/AugieMarketplace/augiemarketplaceapi /src/main/resources/firebase.json");
-
-			FirebaseOptions options = new FirebaseOptions.Builder()
+	public static void main(String[] args) throws IOException {
+		InputStream serviceAccount = new ClassPathResource("firebase.json").getInputStream();
+		FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 					.setDatabaseUrl("https://augiemarketplace.firebaseio.com")
+					.setStorageBucket("augiemarketplace.appspot.com")
 					.build();
-
 			FirebaseApp.initializeApp(options);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		SpringApplication.run(AugiemarketplaceapiApplication.class, args);
+			SpringApplication.run(AugiemarketplaceapiApplication.class, args);
 	}
 }
