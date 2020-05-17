@@ -103,3 +103,9 @@ export const getItemByID = (id) => (dispatch) => {
         })
 }
 
+export const getItemByIDFromStore = (item) => (dispatch) => {
+    dispatch({
+        type: GET_ITEM_BY_ID,
+        payload: item
+    })
+}

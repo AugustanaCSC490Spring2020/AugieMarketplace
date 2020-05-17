@@ -58,11 +58,7 @@ export default function GridTable(props) {
                                 <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
                                         key={cell.itemId}
-                                        id={cell.itemId}
-                                        name={cell.name}
-                                        user={cell.user}
-                                        price={cell.price}
-                                        imgs={cell.imgs}
+                                        item={cell}
                                     />
                                 </TableCell>
                             ))}
