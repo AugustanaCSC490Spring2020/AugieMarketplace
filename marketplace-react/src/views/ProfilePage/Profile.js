@@ -5,7 +5,7 @@ import React from 'react';
 import TablePaginationActions from '../../components/TablePaginationActions';
 import { MockItems } from '../../data/mockData';
 import UserDetail from './UserDetail';
-
+import ItemEdit from './ItemEdit'
 
 const userItems = [MockItems[0], MockItems[1], MockItems[2], MockItems[3], MockItems[4]];
 
@@ -120,8 +120,21 @@ export default function Profile() {
     handleRequestSort(event, property);
   };
 
-  const editItem = (row) => {
+  const [open, setOpen] = React.useState(false);
 
+  //won't handle editing images in this sprint
+
+  const openDialogue = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const handleSubmit = (name, price, datePosted, description, tag) => {
+    //backend call
+    setOpen(false)
   }
 
   const deleteItem = (row) => {
@@ -217,9 +230,15 @@ export default function Profile() {
                           {"$" + row.price}
                         </TableCell>
                         <TableCell>
-                          <IconButton onClick={() => editItem(row)}>
+                          <IconButton onClick={() => openDialogue()}>
                             <Edit />
                           </IconButton>
+                          <ItemEdit
+                            open={open}
+                            item={row}
+                            onClose={handleClose}
+                            onSubmit={handleSubmit}
+                          />
                         </TableCell>
                         <TableCell>
                           <IconButton onClick={() => deleteItem(row)}>
