@@ -102,6 +102,10 @@ export default function Cart(props) {
         handleRequestSort(event, property);
     };
 
+    const deleteFavorite = (index) => {
+        likedItems.splice(index, 1)
+    }
+
     return (
         <TableContainer component={Paper} className={classes.container} styles={{ padding: 1 }}>
             <Table stickyHeader aria-label="sticky table" className={classes.table}>
@@ -175,7 +179,7 @@ export default function Cart(props) {
                                         {row.email}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <IconButton onClick={() => props.deleteFavorite(row)}>
+                                        <IconButton onClick={() => deleteFavorite(key)}>
                                             <DeleteOutline />
                                         </IconButton>
                                     </TableCell>

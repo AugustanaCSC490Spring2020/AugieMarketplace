@@ -129,8 +129,8 @@ export default function Profile() {
     handleRequestSort(event, property);
   };
 
-  const deleteItem = (row) => {
-
+  const deleteItem = (index) => {
+    userItems.splice(index, 1)
   }
 
   return (
@@ -221,7 +221,7 @@ export default function Profile() {
                           {"$" + row.price}
                         </TableCell>
                         <TableCell>
-                          <IconButton onClick={() => deleteItem(row)}>
+                          <IconButton onClick={() => deleteItem(key)}>
                             <DeleteOutline />
                           </IconButton>
                         </TableCell>
