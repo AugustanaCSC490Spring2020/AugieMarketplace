@@ -2,6 +2,7 @@ package com.augiemarketplace.augiemarketplaceapi.controller;
 
 import com.augiemarketplace.augiemarketplaceapi.model.ItemModel;
 import com.augiemarketplace.augiemarketplaceapi.model.ItemWrapper;
+import com.augiemarketplace.augiemarketplaceapi.model.UserModel;
 import com.augiemarketplace.augiemarketplaceapi.service.AugieMarketService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -26,7 +26,8 @@ public class AugieMarketController {
     }
 
     @RequestMapping(value = "/post/item", method = RequestMethod.POST, produces = {"application/json"})
-    public String postItemUser(@RequestBody ItemModel itemInfo, @RequestParam(value = "userId") String uuid)
+    public String postItemUser(@RequestBody ItemModel itemInfo,
+                               @RequestParam(value = "userId") String uuid)
             throws IOException, ExecutionException, InterruptedException {
         return augieMarketService.postItem(itemInfo, uuid);
     }
@@ -35,6 +36,13 @@ public class AugieMarketController {
     public ItemWrapper getListOfItemsOfUser(@RequestParam(value = "userId") String userId)
             throws IOException, ExecutionException, InterruptedException {
         return augieMarketService.getListOfItemsOfUser(userId);
+    }
+
+    @RequestMapping(value = "/list/users", method = RequestMethod.GET, produces = {"application/json"})
+    public UserModel getUser(@RequestParam(value = "userId") String userId,
+                                    @RequestParam(value ="email") String email)
+            throws IOException, ExecutionException, InterruptedException {
+        return augieMarketService.getInfoOfUser(userId, email);
     }
 
     @RequestMapping(value = "/list/items/all", method = RequestMethod.GET, produces = {"application/json"})
@@ -71,13 +79,12 @@ public class AugieMarketController {
         return augieMarketService.postMultipleImages(itemId, images, userId);
     }
 
-    //Returns unique user uuid
     @RequestMapping(value = "/verify/user", method = RequestMethod.GET, produces = {"application/json"})
-    public String verifyUser(HttpServletRequest httpRequest)
+    public UserModel verifyUser(HttpServletRequest httpRequest)
             throws IOException {
         String token = httpRequest.getHeader("Authorization");
-        token = token.replace("Bearer", "").trim();
-        if (token.isEmpty() || token == null)  return "Authorization is required";
+        token = token.replace("Bearer ", "").trim();
+        if (token.isEmpty() || token == null)  return null;
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             return augieMarketService.postUserToFireBase(decodedToken);
