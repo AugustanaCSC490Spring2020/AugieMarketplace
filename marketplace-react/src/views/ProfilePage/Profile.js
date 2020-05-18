@@ -143,7 +143,7 @@ export default function Profile() {
             <UserDetail
               name="Son Nguyen"
               dayJoined="May 11, 2020"
-              description="I am a senior"
+              description="I am a senior studying in Augustana College. I major in Computer Science. I love birds."
               image="https://www.w3schools.com/howto/img_avatar.png"
               imageTitle="Avatar"
             />
