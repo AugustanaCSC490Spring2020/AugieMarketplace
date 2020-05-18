@@ -49,12 +49,15 @@ const styles = theme => ({
   })
   
 class PostItemForm extends Component {
+  fileObj = [];
+  fileArray = [];
+
   constructor(props) {
     super(props)
     this.state = {
       currentStep: 1,
-      image: null,
-      imageURL: null,
+      image: [],
+      imageURL: [],
       itemPrice: null,
       itemType: null,
       itenName: null,
@@ -70,9 +73,13 @@ class PostItemForm extends Component {
   }
 
   uploadPicture = event => {
+    this.fileObj.push(event.target.files)
+    for(let i = 0; i< this.fileObj[0].length; i++){
+      this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+    }
     this.setState({
-        image: event.target.files[0],
-        imageURL: URL.createObjectURL(event.target.files[0]),
+        image: this.fileObj,
+        imageURL: this.fileArray,
     });
 }
 
@@ -89,23 +96,52 @@ class PostItemForm extends Component {
     })
     if(currentStep === 4){
       axios({
-        method: 'delete',     //HTTP method
-     url:`https://20200514t221321-dot-augiemarketplace-276519.uc.r.appspot.com/post/item?userId=crossorigin`,
+        method: 'post',     //HTTP method
+     url:`https://20200517t231142-dot-augiemarketplace-276519.uc.r.appspot.com/post/item?userId=9c677b50-4ebd-4e4c-bf49-7bcb7dfb7532`,
         // headers: {'Authorization': 'Bearer'}, 
         data: { // This is the body part fill out with the props
           name: this.state.itemName,
           description: this.state.itemDes,
           price: this.state.itemPrice,
-          email: "sonnguyen16@augustana.edu",
-          isAvailable: true,
+          type: this.state.itemType,
+          email: "samihsghier16@augustana.edu",
         }
       }).then(response => {
    // if item is posted do smthg 
+        console.log("test" + JSON.stringify(response));
         if (response.status === 200) {
-   }
+          const formData = new FormData();
+          formData.append('userId', '9c677b50-4ebd-4e4c-bf49-7bcb7dfb7532');
+          console.log(response);
+          formData.append('itemId', response.data);
+          formData.append('images', this.state.image);
+          const config = {
+              headers: {
+                  'content-type': 'multipart/form-data'
+              }
+          }
+          axios.post('https://20200517t231142-dot-augiemarketplace-276519.uc.r.appspot.com/post/multiple/images', formData, config);
+        }
       }).catch(error => {
         console.log(error);
       });
+
+      // //posts files
+      // const formData = new FormData();
+      // formData.append('userId', '9c677b50-4ebd-4e4c-bf49-7bcb7dfb7532');
+      // formData.append('images', this.state.image);
+      // const config = {
+      //     headers: {
+      //         'content-type': 'multipart/form-data'
+      //     }, data: {
+      //       name: this.state.itemName,
+      //       description: this.state.itemDes,
+      //       price: this.state.itemPrice,
+      //       type: this.state.itemType,
+      //       email: "samihsghier16@augustana.edu",
+      //     }
+      // }
+      // axios.post('https://20200517t224051-dot-augiemarketplace-276519.uc.r.appspot.com/post/item', formData, config);
     }
   }
     
@@ -219,3 +255,4 @@ class PostItemForm extends Component {
 }
 
 export default withStyles(styles)(PostItemForm);
+

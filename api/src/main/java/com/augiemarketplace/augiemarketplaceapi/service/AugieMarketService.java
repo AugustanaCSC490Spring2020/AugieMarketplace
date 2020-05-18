@@ -27,7 +27,7 @@ public class AugieMarketService {
     private AugieMarketRepo userRepository;
     private Logger logger = Logger.getLogger(String.valueOf(AugieMarketService.class));
 
-    public String postUserToFireBase(FirebaseToken decodedToken) {
+    public UserModel postUserToFireBase(FirebaseToken decodedToken) {
         UserModel fireBaseInfo = UserModel.builder()
                 .userId(decodedToken.getUid())
                 .email(decodedToken.getEmail())
@@ -38,17 +38,17 @@ public class AugieMarketService {
                 .build();
         Firestore dbFireStore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("users").
-                document(decodedToken.getUid()).set(fireBaseInfo);
-        return decodedToken.getUid();
+                document(decodedToken.getEmail()).set(fireBaseInfo);
+        return fireBaseInfo;
     }
 
-    public String postItem(ItemModel itemModel, String uuid) throws ExecutionException, InterruptedException {
+    public String postItem(ItemModel itemModel, String uuid) throws ExecutionException, InterruptedException, IOException {
         List<ItemModel> updatedModel = new ArrayList<>();
         ItemModel updateItem = itemModel.builder()
                 .itemId(new ObjectId().toString())
                 .userId(uuid)
                 .price(itemModel.getPrice())
-                .isAvailable(itemModel.isAvailable())
+                .isAvailable(true)
                 .name(itemModel.getName())
                 .email(itemModel.getEmail())
                 .description(itemModel.getDescription())
@@ -72,7 +72,7 @@ public class AugieMarketService {
             ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("springItems").
                     document(uuid).set(wrapper);
         }
-        return "success";
+        return updateItem.getItemId();
     }
 
     public ItemWrapper getListOfItemsOfUser(String userId) throws ExecutionException, InterruptedException {
@@ -107,11 +107,8 @@ public class AugieMarketService {
     }
 
     public List<ItemModel> getListOfAllItems() throws ExecutionException, InterruptedException, IOException {
-        logger.info("test 1" );
         Firestore dbFireStore = FirestoreClient.getFirestore();
-        logger.info("test 2" );
         Iterable<DocumentReference> documentReference = dbFireStore.collection("springItems").listDocuments();
-        logger.info("test 2" );
         List<ItemModel> listOfAllItems = new ArrayList<>();
         List<DocumentReference> docList = new ArrayList<>();
         documentReference.forEach(docList::add);
@@ -189,5 +186,16 @@ public class AugieMarketService {
             return "deleted!";
         }
         return "could not find item!";
+    }
+
+    public UserModel getInfoOfUser(String userId, String email) throws ExecutionException, InterruptedException {
+        Firestore dbFireStore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFireStore.collection("users").document(email);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot document = future.get();
+        if (document.exists()) {
+            return document.toObject(UserModel.class);
+        }
+        return null;
     }
 }
