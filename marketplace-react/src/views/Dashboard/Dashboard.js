@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { Filters, GridTable } from '../../components';
 import { selectItems, selectItemsLoading } from "../../redux/reducers";
 import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
-
+import { useLocation } from 'react-router-dom'
+import Profile from '../ProfilePage/Profile';
+import orderBy from 'lodash/orderBy'
 
 /**
  * returns an array that represents the tabledata 'numCol' items per row
@@ -29,8 +31,19 @@ function prepareData(data, numCol): [] {
 export default function DashboardView(props) {
     const items = useSelector(selectItems);
     const itemsLoading = useSelector(selectItemsLoading);
+    let query = "";
+
+    const filterer = () => {
+        let ret = orderBy(
+            query ? items.filter(x =>
+                x["name"].toLowerCase().includes(query.toLowerCase())
+            ) : items);
+        console.log(ret);
+        return ret;
+    }
     return (
         <Container>
+            <Profile/>
             <Filters align="center" />
             <Divider />
             {itemsLoading ? (
@@ -41,9 +54,8 @@ export default function DashboardView(props) {
                     </div>
                 </Container>
             ) : (
-                    <GridTable rows={prepareData(items, 3)} />
+                    <GridTable rows={prepareData(filterer(), 3)} />
                 )}
-            <CreatePostDialogue />
         </Container>
     );
 }

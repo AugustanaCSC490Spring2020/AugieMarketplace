@@ -5,7 +5,10 @@ import React from 'react';
 import TablePaginationActions from '../../components/TablePaginationActions';
 import { MockItems } from '../../data/mockData';
 import UserDetail from './UserDetail';
-
+import ItemEdit from './ItemEdit'
+import { selectUserByEmail } from '../../redux/reducers/users';
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserByEmail } from '../../redux/actions/users'
 
 const userItems = [MockItems[0], MockItems[1], MockItems[2], MockItems[3], MockItems[4]];
 
@@ -88,6 +91,12 @@ function stableSort(array, comparator) {
 
 export default function Profile() {
   const classes = useStyles();
+  // let sth = getUserByEmail("");
+  const dispatch = useDispatch();
+  dispatch(getUserByEmail("danielleosazuwa16@augustana.edu"))
+
+  // let currentUser = useSelector(selectUserByEmail);
+  // console.log(currentUser);
 
   const [page, setPage] = React.useState(0);
 
@@ -119,10 +128,6 @@ export default function Profile() {
   const createSortHandler = property => event => {
     handleRequestSort(event, property);
   };
-
-  const editItem = (row) => {
-
-  }
 
   const deleteItem = (row) => {
 
@@ -194,7 +199,6 @@ export default function Profile() {
                     </TableSortLabel>
                   </TableCell>
 
-                  <TableCell>Edit Posting</TableCell>
                   <TableCell>Delete</TableCell>
 
 
@@ -215,11 +219,6 @@ export default function Profile() {
                         </TableCell>
                         <TableCell component="th" scope="row" padding="none">
                           {"$" + row.price}
-                        </TableCell>
-                        <TableCell>
-                          <IconButton onClick={() => editItem(row)}>
-                            <Edit />
-                          </IconButton>
                         </TableCell>
                         <TableCell>
                           <IconButton onClick={() => deleteItem(row)}>

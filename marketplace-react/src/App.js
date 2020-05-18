@@ -18,6 +18,7 @@ import { getMockItems, getItems } from './redux/actions/items'
 
 import Axios from "axios";
 import Profile from './views/ProfilePage/Profile';
+import ItemEdit from './views/ProfilePage/ItemEdit';
 Axios.defaults.baseURL =
   'https://cors-anywhere.herokuapp.com/https://20200517t060107-dot-augiemarketplace-276519.uc.r.appspot.com'; //cors-anywhere to fix CORS problem
 
@@ -102,18 +103,13 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch>
-
-          {/* <Profile/> */}
-          {/* <Cart/> */}
-          {/* <ItemDetails/> */}
           
+         
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
         </Container>
       </main>
-
-
     </div>
   )
 };

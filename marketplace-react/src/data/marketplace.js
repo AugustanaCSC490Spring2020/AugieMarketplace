@@ -14,12 +14,11 @@ export interface SimpleDate {
 export interface Item {
     id: String, //shortid.generate()
     name: String,
-    user: String, //user item belongs to
+    email: String,
     price: Number,
-    //status: Boolean, should only be for the backend
     datePosted: SimpleDate,
     description: String,
-    tags: String[],
+    tags: String[], //only on tag rn, remember to use tags[0]
     imgs: String[],
 }
 

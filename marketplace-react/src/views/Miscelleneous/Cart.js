@@ -114,6 +114,7 @@ export default function Cart(props) {
                     <TableRow>
                         <TableCell></TableCell>
                         <TableCell
+                            align="center"
                             sortDirection={orderBy === "name" ? order : false}
                         >
                             <TableSortLabel
@@ -131,6 +132,7 @@ export default function Cart(props) {
                         </TableCell>
 
                         <TableCell
+                            align="center"
                             sortDirection={orderBy === "price" ? order : false}
                         >
                             <TableSortLabel
@@ -147,8 +149,8 @@ export default function Cart(props) {
                             </TableSortLabel>
                         </TableCell>
 
-                        <TableCell>Contact Poster</TableCell>
-                        <TableCell>Delete</TableCell>
+                        <TableCell align="center">Contact</TableCell>
+                        <TableCell align="center">Delete</TableCell>
 
 
                     </TableRow>
@@ -159,22 +161,20 @@ export default function Cart(props) {
                         .map((row, key) => {
                             return (
                                 <TableRow key={key}>
-                                    <TableCell>
+                                    <TableCell align="center">
                                         <img
                                             width='auto' height='40' src={"MockImages/" + row.imgs[0] + ".jpg"} alt={row.name} />
                                     </TableCell>
-                                    <TableCell component="th" scope="row" padding="none">
+                                    <TableCell align="center" component="th" scope="row" padding="none">
                                         {row.name}
                                     </TableCell>
-                                    <TableCell component="th" scope="row" padding="none">
+                                    <TableCell align="center" component="th" scope="row" padding="none">
                                         {"$" + row.price}
                                     </TableCell>
-                                    <TableCell>
-                                        <IconButton onClick={() => props.sendEmail(row)}>
-                                            <MailOutline />
-                                        </IconButton>
+                                    <TableCell align="center" component="th" scope="row" padding="none">
+                                        {row.email}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell align="center">
                                         <IconButton onClick={() => props.deleteFavorite(row)}>
                                             <DeleteOutline />
                                         </IconButton>

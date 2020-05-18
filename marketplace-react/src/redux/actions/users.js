@@ -1,5 +1,7 @@
 import { UsersActionTypes } from "../consts";
 import Axios from "axios";
+import { useSelector } from 'react-redux';
+import { selectFirebaseToken } from "../reducers";
 
 const {
     LOADING_USERS,
@@ -10,7 +12,7 @@ const {
     UPDATE_AUTH_USER
 } = UsersActionTypes;
 
-export const createUser = (email, data) = (dispatch) => {
+export const createUser = (email, data) => (dispatch) => {
     dispatch({ type: LOADING_USERS })
     Axios
         .post(`/users/${email}`, data)
@@ -26,7 +28,7 @@ export const createUser = (email, data) = (dispatch) => {
         });
 }
 
-export const updateUser = (email, data) = (dispatch) => {
+export const updateUser = (email, data) => (dispatch) => {
     dispatch({ type: LOADING_USERS })
     Axios
         .post(`/users`, data)
@@ -42,19 +44,20 @@ export const updateUser = (email, data) = (dispatch) => {
         });
 }
 
-export const getUserByEmail = (email) = (dispatch) => {
+export const getUserByEmail = (email) => (dispatch) => {
     dispatch({ type: LOADING_USERS })
     Axios
-        .get(`/users/${email}`) 
+        .get("/verify/user", {headers: {'Authorization': 'Bearer ' + useSelector(selectFirebaseToken)}})
         .then((res) => {
             dispatch({
-                type: GET_USER_BY_EMAIL
+                type: GET_USER_BY_EMAIL,
                 payload: res.data
             })
         })
-        .catch) (err) => {
+        .catch((err) => {
+            console.log(err)
             dispatch({
                 type: ERROR_USER_BY_EMAIL
-            })
-        }
+            });
+        });
 }

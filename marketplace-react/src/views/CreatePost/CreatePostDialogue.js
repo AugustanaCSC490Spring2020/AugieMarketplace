@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, Divider, Fab, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogContent, Divider, IconButton, Typography, Tooltip } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -116,13 +116,18 @@ export default function CreatePostDialogue(props) {
     return (
         <div>
             {/* onclick link to createpost */}
-            <Fab className={classes.createIconFab} aria-label="create-post">
+            {/* <Fab className={classes.createIconFab} onClick={handleClickOpen} aria-label="create-post">
                 <Tooltip title="Create New Post">
-                    <IconButton onClick={handleClickOpen}>
                         <Create/>
-                    </IconButton>
                 </Tooltip>
-            </Fab>
+            </Fab> */}
+
+            <Tooltip title="Create New Post">
+                <IconButton color="inherit" onClick={handleClickOpen}>
+                    <Create />
+                </IconButton>
+            </Tooltip>
+
             <Dialog open={open}
                 fullWidth={fullWidth}
                 maxWidth={maxWidth}
@@ -230,7 +235,7 @@ export default function CreatePostDialogue(props) {
                         </Paper>
                     </main>
                 </DialogContent>
-                
+
                 {/* <DialogActions>
                     <IconButton onClick={handleClose}>
                         <CloseIcon />
