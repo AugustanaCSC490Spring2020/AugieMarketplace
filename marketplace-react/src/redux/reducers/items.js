@@ -6,11 +6,13 @@ const {
   ERROR_ITEM_BY_ID,
   GET_ITEMS,
   GET_ITEM_BY_ID,
+  SET_QUERY
 } = ItemsActionTypes;
 
 const initialState = {
   items: [],
   item_by_id: {},
+  query: "",
   error: "",
   loading: false,
 };
@@ -51,6 +53,11 @@ export default (state = initialState, action) => {
         item_by_id: action.payload,
         loading: false
       };
+    case SET_QUERY:
+      return {
+        ...state,
+        query: action.payload
+      }
     default:
       return state;
   }
@@ -61,3 +68,4 @@ export const selectItemsLoading = (state) => state.loading;
 
 export const selectItemById = (state) => state.item_by_id;
 export const selectItemByIdLoading = (state) => state.loading;
+

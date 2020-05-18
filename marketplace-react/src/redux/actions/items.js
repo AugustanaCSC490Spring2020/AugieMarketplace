@@ -9,7 +9,8 @@ const {
     GET_ITEMS,
     GET_ITEM_BY_ID,
     UPDATE_ITEM,
-    DELETE_ITEM
+    DELETE_ITEM,
+    SET_QUERY
 } = ItemsActionTypes;
 
 export const createItem = (data) => (dispatch) => {
@@ -109,3 +110,10 @@ export const getItemByIDFromStore = (item) => (dispatch) => {
         payload: item
     })
 }
+
+export const setQuery = (query) => (dispatch) => (
+    dispatch({
+        type: SET_QUERY,
+        payload: query
+    })
+)

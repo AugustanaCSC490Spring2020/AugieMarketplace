@@ -52,10 +52,10 @@ export default function GridTable(props) {
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map(row => (
-                        <TableRow key={row[0].id} style={{ borderStyle: 'none' }}>
+                        <TableRow key={row[0].itemId} style={{ borderStyle: 'none' }}>
                             {/* each cell is an ItemCard */}
                             {row.map((cell, index) => (
-                                <TableCell key={index} component='th' scope='row' style={{ borderStyle: 'none' }}>
+                                <TableCell key={row[0].itemId + index} component='th' scope='row' style={{ borderStyle: 'none' }}>
                                     <ItemCard
                                         key={cell.itemId}
                                         item={cell}

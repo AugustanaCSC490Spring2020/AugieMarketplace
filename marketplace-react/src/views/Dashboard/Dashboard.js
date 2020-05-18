@@ -7,6 +7,7 @@ import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
 import { useLocation } from 'react-router-dom'
 import Profile from '../ProfilePage/Profile';
 import orderBy from 'lodash/orderBy'
+import store from '../../redux/store';
 
 /**
  * returns an array that represents the tabledata 'numCol' items per row
@@ -31,20 +32,42 @@ function prepareData(data, numCol): [] {
 export default function DashboardView(props) {
     const items = useSelector(selectItems);
     const itemsLoading = useSelector(selectItemsLoading);
-    let query = "";
+    let query = store.getState().items.query;
 
     const filterer = () => {
         let ret = orderBy(
             query ? items.filter(x =>
                 x["name"].toLowerCase().includes(query.toLowerCase())
             ) : items);
-        console.log(ret);
         return ret;
     }
+
+    //sort in react
+    const sortAscending = () => {
+        // const sortedItems = items;
+        // sortedItems.sort((a, b) => a.price - b.price)
+        // items = sortedItems;
+    }
+
+    const sortDescending = () => {
+        // const sortedItems = items;
+        // sortedItems.sort((a, b) => a.price - b.price).reverse()
+        // items = sortedItems;
+    }
+
+    const sortNew = () => {
+        // const sortedItems = items;
+        // sortedItems.sort((a,b) => a.createdAt - b.createdAt)
+        // items = sortedItems;
+    }
+
     return (
         <Container>
-            <Profile/>
-            <Filters align="center" />
+            <Filters align="center" 
+                sortAscending = {sortAscending}
+                sortDescending = {sortDescending}
+                sortNew = {sortNew}
+            />
             <Divider />
             {itemsLoading ? (
                 <Container className="mh-100">

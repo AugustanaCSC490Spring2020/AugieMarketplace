@@ -1,11 +1,7 @@
-import Chip from '@material-ui/core/Chip';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { InputAdornment, IconButton, TextField } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { default as React } from 'react';
 
@@ -53,13 +49,6 @@ const productTypes = [
     "Other"
 ];
 
-const majors = [
-    "CSC",
-    "ECON",
-    "FYI",
-    "MATH",
-];
-
 function getStyles(name, personName, theme) {
     return {
         fontWeight:
@@ -78,7 +67,13 @@ export default function Filters(props) {
 
     const handleSort = (event) => {
         setSortType(event.target.value);
-
+        if (sortType == "What's new") {
+            props.sortNew()
+        } else if (sortType == "Price High to Low") {
+            props.sortDescending()
+        } else {
+            props.sortAscending()
+        }
     }
 
     const handleChangeProductType = (event) => {
@@ -119,8 +114,6 @@ export default function Filters(props) {
                     ))}
                 </Select>
             </FormControl>
-
-            
         </div>
     );
 }

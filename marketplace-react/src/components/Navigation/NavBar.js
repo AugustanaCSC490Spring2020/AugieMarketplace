@@ -10,8 +10,11 @@ import { useStyles } from "./styles";
 import { signOut } from '../../firebase/firebase'
 import CreatePostDialogue from "../../views/CreatePost/CreatePostDialogue";
 import { useLocation } from "react-router";
+import { setQuery } from '../../redux/actions/items';
+import store from '../../redux/store';
 
-function SearchBar(props) {
+function SearchBar() {
+  let query = Object.assign(store.getState().items.query);
   return (
     <FormControl>
       <Input
@@ -22,8 +25,8 @@ function SearchBar(props) {
             </IconButton>
           </InputAdornment>
         }
-        value={props.query}
-        onChange={(e) => props.setQuery(e.target.value)}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
       />
     </FormControl>
   );
@@ -52,7 +55,7 @@ const NavBar = (props) => {
   }
  
   let location = useLocation();
-
+  console.log(store.getState().items.query)
   return (
     <div>
       <AppBar

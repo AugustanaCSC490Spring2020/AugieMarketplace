@@ -14,7 +14,8 @@ export const ItemsActionTypes = {
     GET_ITEMS: 'GET_ITEMS',
     GET_ITEM_BY_ID: 'GET_ITEM_BY_ID',
     UPDATE_ITEM: 'UPDATE_ITEM',
-    DELETE_ITEM: 'DELETE_ITEM'
+    DELETE_ITEM: 'DELETE_ITEM',
+    SET_QUERY: 'SET_QUERY'
 };
 
 export const UsersActionTypes = {
