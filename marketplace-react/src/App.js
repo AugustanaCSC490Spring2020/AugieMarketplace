@@ -103,18 +103,12 @@ const App = () => {
             }
             <Redirect to={defaultRoute} />
           </Switch>
-
-          {/* <Profile/> */}
-          {/* <Cart/> */}
-          {/* <ItemDetails/> */}
           
           <Box pt={4}>
             <CopyrightFooter />
           </Box>
         </Container>
       </main>
-
-
     </div>
   )
 };

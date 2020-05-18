@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Filters, GridTable } from '../../components';
 import { selectItems, selectItemsLoading } from "../../redux/reducers";
 import CreatePostDialogue from '../CreatePost/CreatePostDialogue';
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 /**
  * returns an array that represents the tabledata 'numCol' items per row
@@ -30,7 +30,7 @@ export default function DashboardView(props) {
     const items = useSelector(selectItems);
     const itemsLoading = useSelector(selectItemsLoading);
 
-   
+
     return (
         <Container>
             <Filters align="center" />

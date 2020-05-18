@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
     galleryImage: {
         margin: 'auto',
         display: 'block',
-        height: '50px'
+        height: '50px',
+        maxWidth: '50px'
     },
     displayedImage: {
         width: '500px'
