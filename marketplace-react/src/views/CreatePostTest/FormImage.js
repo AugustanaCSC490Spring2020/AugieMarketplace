@@ -34,9 +34,11 @@ export default function FormImage(props) {
         </Typography>
         <Grid container spacing={3}>
             <Grid item xs={12}>
-            {props.image == null
+            {props.image.length === 0
                 ? <ImageIcon className={classes.imageIcon}></ImageIcon>
-                : <img alt="preview" src={props.imageURL} style={{maxHeight: "400px",maxWidth: "400px"}}/>
+                : props.imageURL.map((item) => (
+                    <img alt="preview" src={item} style={{maxHeight: "400px",maxWidth: "400px"}}/>
+                ))
              }
                 
             </Grid>
@@ -58,6 +60,7 @@ export default function FormImage(props) {
                     id="contained-button-file"
                     type="file"
                     onChange={props.uploadPicture}
+                    multiple
                 />
                 <label htmlFor="contained-button-file">
                     <Button variant="contained" color="primary" component="span">

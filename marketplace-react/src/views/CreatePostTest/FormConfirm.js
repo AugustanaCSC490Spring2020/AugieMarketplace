@@ -30,8 +30,11 @@ export default function FormConfirm(props) {
                   <ListItemText primary={props.itemName} secondary={props.itemDes} />
                   <Typography className={classes.total} variant="body2">${props.itemPrice}</Typography>
               </ListItem>
-              <img alt='preview' src={props.imageURL} style={{maxHeight: "250px",maxWidth: "250px"}}/>
               <Typography variant="body2">Item Type: {props.itemType}</Typography>
+              {props.imageURL.map((item) => (
+                    <img alt="preview" src={item} style={{maxHeight: "200px", maxWidth: "200px", padding: "10px"}}/>
+                )) }
+              
           </List>
       </React.Fragment>
   );
