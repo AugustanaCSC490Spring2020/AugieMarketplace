@@ -55,10 +55,10 @@ class PostItemForm extends Component {
       currentStep: 1,
       image: null,
       imageURL: null,
-      itemPrice: '',
-      itemType: '',
-      itenName: '',
-      itemDes: '',
+      itemPrice: null,
+      itemType: null,
+      itenName: null,
+      itemDes: null,
     }
   }
 
@@ -199,6 +199,11 @@ class PostItemForm extends Component {
                       color="primary"
                       onClick={this._next}
                       className={classes.button}
+                      disabled={(this.state.image==null && this.state.currentStep===1) ||
+                                ((this.state.itemName==null ||
+                                this.state.itemType==null ||
+                                this.state.itemPrice==null||
+                                this.state.itemDes==null) && this.state.currentStep===2)}
                     >
                       {this.state.currentStep === steps.length ? 'Post your item' : 'Next'}
                     </Button>
