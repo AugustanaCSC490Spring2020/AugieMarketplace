@@ -104,6 +104,7 @@ const App = () => {
             <Redirect to={defaultRoute} />
           </Switch>
           
+         
           <Box pt={4}>
             <CopyrightFooter />
           </Box>

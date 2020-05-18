@@ -11,7 +11,6 @@ import { signOut } from '../../firebase/firebase'
 import CreatePostDialogue from "../../views/CreatePost/CreatePostDialogue";
 import { useLocation } from "react-router";
 
-
 function SearchBar(props) {
   return (
     <FormControl>
