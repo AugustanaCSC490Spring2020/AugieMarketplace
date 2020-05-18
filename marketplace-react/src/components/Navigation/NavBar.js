@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { selectFirebaseToken } from "../../redux/reducers";
+import { getUserByEmail } from '../../redux/actions/users'
 import history from "../../utils/history";
 import { useStyles } from "./styles";
 import { signOut } from '../../firebase/firebase'
@@ -12,8 +13,10 @@ import CreatePostDialogue from "../../views/CreatePost/CreatePostDialogue";
 import { useLocation } from "react-router";
 import { setQuery } from '../../redux/actions/items';
 import store from '../../redux/store';
+import jwt_decode from 'jwt-decode'
+import PostItemForm from "../../views/CreatePostTest/PostItemForm";
 
-function SearchBar() {
+function SearchBar(props) {
   let query = Object.assign(store.getState().items.query);
   return (
     <FormControl>
@@ -38,7 +41,11 @@ const NavBar = (props) => {
   const dispatch = useDispatch();
   const firebaseToken = useSelector(selectFirebaseToken);
 
-  const pushToProfile = () => history.push("./profile");
+  const pushToProfile = () => {
+    const decodedToken = jwt_decode(firebaseToken)
+    history.push(`./users/${decodedToken.user_id}`)
+    //dispatch(getUserByEmail(decodedToken.email))
+  };
 
   const pushToFavorites = () => history.push("./favorites");
 
@@ -53,7 +60,7 @@ const NavBar = (props) => {
         console.log(err) //TODO: show error --> try again
       )
   }
- 
+
   let location = useLocation();
   console.log(store.getState().items.query)
   return (
@@ -90,8 +97,8 @@ const NavBar = (props) => {
               {location.pathname == "/dashboard" &&
                 <React.Fragment>
                   <SearchBar />
-                  <CreatePostDialogue />
-                </React.Fragment>
+                  <PostItemForm />
+                  </React.Fragment>
               }
               <Tooltip title="Profile">
                 <IconButton color="inherit" onClick={pushToProfile}>

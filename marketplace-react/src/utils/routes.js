@@ -19,11 +19,11 @@ const routes = [
     component: Cart
   }
   ,
-  // {
-  //   path: "/users/userId",
-  //   name: "Profile",
-  //   component: Profile
-  // }
+  {
+    path: "/users/:userId",
+    name: "Profile",
+    component: Profile
+  }
   //could add other components here
 ];
 

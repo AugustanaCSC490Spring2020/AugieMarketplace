@@ -81,13 +81,18 @@ export default function ItemDetails() {
                         justify="center"
                         alignItems="center"
                         spacing={1}>
-                        {imageUrl.map((img, index) => (
+                        {imageUrl
+                            ? 
+                        imageUrl.map((img, index) => (
                             <Grid item key={img} >
                                 <ButtonBase className={classes.image} onClick={() => displayImage(index)}>
                                     <img className={classes.galleryImage} src={img} />
                                 </ButtonBase>
                             </Grid>
-                        ))}
+                        ))
+                            :
+                            <></>
+                    }
                     </Grid>
                 </Grid>
 
@@ -96,7 +101,22 @@ export default function ItemDetails() {
                     <IconButton onClick={() => scrollImage(-1)} className={classes.mainImageButton}>
                         <KeyboardArrowLeftIcon />
                     </IconButton>
-                    <img className={classes.displayedImage} alt="currImage" src={imageUrl[currImage]} />
+                    {
+                        imageUrl 
+                        ?
+                        <>
+                        {
+                           imageUrl.length > 0 
+                           ?
+                           <img className={classes.displayedImage} alt="currImage" src={imageUrl[currImage]} />
+                           :
+                           <></> 
+                        }   
+                        </>
+                        :
+                        <></> 
+                    }
+                    
                     <IconButton onClick={() => scrollImage(1)} className={classes.mainImageButton}>
                         <KeyboardArrowRightIcon />
                     </IconButton>
