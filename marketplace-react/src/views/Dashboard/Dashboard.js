@@ -43,7 +43,6 @@ export default function DashboardView(props) {
     }
     return (
         <Container>
-            <Profile/>
             <Filters align="center" />
             <Divider />
             {itemsLoading ? (

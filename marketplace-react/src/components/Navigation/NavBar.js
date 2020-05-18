@@ -5,11 +5,14 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { selectFirebaseToken } from "../../redux/reducers";
+import { getUserByEmail } from '../../redux/actions/users'
 import history from "../../utils/history";
 import { useStyles } from "./styles";
 import { signOut } from '../../firebase/firebase'
 import CreatePostDialogue from "../../views/CreatePost/CreatePostDialogue";
 import { useLocation } from "react-router";
+
+import jwt_decode from 'jwt-decode'
 
 function SearchBar(props) {
   return (
@@ -35,7 +38,11 @@ const NavBar = (props) => {
   const dispatch = useDispatch();
   const firebaseToken = useSelector(selectFirebaseToken);
 
-  const pushToProfile = () => history.push("./profile");
+  const pushToProfile = () => {
+    const decodedToken = jwt_decode(firebaseToken)
+    history.push(`./users/${decodedToken.user_id}`)
+    //dispatch(getUserByEmail(decodedToken.email))
+  };
 
   const pushToFavorites = () => history.push("./favorites");
 
